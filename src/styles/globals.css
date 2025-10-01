@@ -1,12 +1,28 @@
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #fafafa;
+  --foreground: #0a0a0a;
+  --accent: #e5e5e5;
+  --border: #e5e5e5;
+  --card: #f5f5f5;
+  --bingo: #e11d48;
+  --unit: 0.25rem;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
-    --foreground: #ededed;
+    --foreground: #fafafa;
+    --accent: #262626;
+    --border: #262626;
+    --card: #171717;
+    --bingo: #e11d48;
+    --unit: 0.25rem;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  html {
+    color-scheme: dark;
   }
 }
 
@@ -19,7 +35,7 @@ body {
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Mona Sans Variable", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -35,8 +51,42 @@ a {
   text-decoration: none;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
+button {
+  border: 0;
+  background-color: none;
+  outline: none;
+  -webkit-appearance: none;
+}
+
+.navButton {
+  border-radius: 50%;
+  padding: 0.5rem;
+  background-color: var(--background);
+  width: 3rem;
+  height: 3rem;
+  transition-property: all;
+  transition-duration: 500ms;
+}
+
+.navButton:hover {
+  background-color: var(--accent);
+  opacity: 0.75;
+}
+
+.searchBar {
+  padding-inline: 3.25rem;
+  padding-block: 0.8rem;
+  border-radius: 0.75rem;
+  width: "100%";
+  background-color: var(--accent);
+  border: 1px solid;
+  border-color: var(--border);
+  transition-property: all;
+  transition-duration: 500ms;
+}
+
+.searchBar:focus {
+  outline: none;
+  background-color: var(--background);
+  border-color: var(--bingo);
 }
