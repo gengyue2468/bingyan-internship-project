@@ -55,7 +55,6 @@ function PanelButton({ link, title, ...props }) {
     >
       <Flex direction="row" gap={4} justify="between">
         <h4 style={{ fontWeight: 500 }}>{title}</h4>
-        {link && <LinkIcon style={{ width: "1rem", height: "1rem" }} />}
       </Flex>
     </button>
   );
