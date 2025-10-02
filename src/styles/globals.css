@@ -128,25 +128,33 @@ button {
   transition-duration: "500ms";
 }
 
+.normalButton:hover {
+  opacity: 0.9;
+}
+
 .normalButton:active {
   scale: 0.95;
   transition-duration: 300ms;
 }
 
 .searchBar {
-  padding-inline: 3.25rem;
   padding-block: 0.8rem;
   border-radius: 0.75rem;
   width: "100%";
   background-color: var(--accent);
-  border: 0px;
+  border: 2px solid transparent;
   transition-property: all;
   transition-duration: 500ms;
 }
 
+.searchBar:hover {
+  background-color: var(--border);
+}
+
 .searchBar:focus {
   outline: none;
-  background-color: var(--background);
+  border: 2px solid;
+  background-color: var(--border);
   border-color: var(--success);
 }
 

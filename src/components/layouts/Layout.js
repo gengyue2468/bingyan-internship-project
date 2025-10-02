@@ -11,11 +11,7 @@ export default function Layout({ title, children }) {
       </Head>
       <Sidebar />
       <div style={{ display: "flex", justifyContent: "end" }}>
-        <div
-          style={{
-            width: "calc(100% - 4.5rem)",
-          }}
-        >
+        <div style={{ position: "relative", width: "calc(100% - 4.5rem)" }}>
           <Topbar />
           <main
             style={{

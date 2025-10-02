@@ -50,12 +50,13 @@ export default function Sidebar() {
       linearIcon: <BellLinear style={iconStyle} />,
       filledIcon: <BellFilled style={iconStyle} />,
       pannelContent: <UpdatePanel />,
+      translatePercent: "35%",
     },
     {
-      title: "信息",
+      title: "消息",
       linearIcon: <ChatLinear style={iconStyle} />,
       filledIcon: <ChatFilled style={iconStyle} />,
-      pannelContent: <MessagePanel />,
+      pannelContent: <MessagePanel reset={() => setActiveIndex(1)} />,
     },
   ];
   return (
@@ -114,6 +115,9 @@ export default function Sidebar() {
                 linearIcon={nav.linearIcon}
                 filledIcon={nav.filledIcon}
                 pannelContent={nav.pannelContent}
+                translatePercent={
+                  nav.translatePercent ? nav.translatePercent : "50%"
+                }
                 disabledPanel={index === 0}
                 isPressed={activeIndex === index + 1}
                 onClick={() =>
@@ -128,7 +132,7 @@ export default function Sidebar() {
               linearIcon={<SettingsLinear style={iconStyle} />}
               filledIcon={<SettingsFilled style={iconStyle} />}
               isPressed={activeIndex === navItems.length + 1}
-              pannelContent={<SettingsPanel />}
+              pannelContent={<SettingsPanel reset={() => setActiveIndex(1)} />}
               translatePercent="100%"
               onClick={() =>
                 setActiveIndex(

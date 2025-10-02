@@ -5,6 +5,7 @@ import {
   XIcon,
 } from "@/components/ui/Icons";
 import Flex from "@/components/layouts/Flex";
+import DropDown from "@/components/ui/Dropdown";
 
 function PanelButton({ icon, title, desc, highlight, ...props }) {
   return (
@@ -44,20 +45,40 @@ function PanelButton({ icon, title, desc, highlight, ...props }) {
   );
 }
 
-export default function MessagePanel() {
+export default function MessagePanel({ reset }) {
   const iconStyle = { width: "2rem", height: "2rem" };
   return (
     <div>
       <Flex direction="row" justify="between" gap={12}>
         <Flex direction="row" gap={4}>
-          <button type="button" className="accentButton">
+          <button
+            type="button"
+            onClick={() => reset()}
+            className="accentButton"
+          >
             <XIcon style={iconStyle} />
           </button>
-          <h2>信息</h2>
+          <h2>消息</h2>
         </Flex>
-        <button type="button" className="accentButton">
+        <DropDown
+          type="button"
+          className="accentButton"
+          menu={
+            <button
+              type="button"
+              className="normalButton ghostButton"
+              style={{
+                paddingInline: "0.75rem",
+                paddingBlock: "0.5rem",
+                borderRadius: "0.5rem",
+              }}
+            >
+              全部标记为已读
+            </button>
+          }
+        >
           <DotsIcon style={iconStyle} />
-        </button>
+        </DropDown>
       </Flex>
 
       <Flex direction="column" gap={4} style={{ marginTop: "1rem" }}>

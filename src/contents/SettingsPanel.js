@@ -17,7 +17,7 @@ function PanelButton({ link, title, ...props }) {
         transform: "translateX(-0.5rem)",
         borderRadius: "0.5rem",
       }}
-      className="ghostButton"
+      className="ghostButton normalButton"
     >
       <Flex direction="row" gap={4} justify="between">
         <h4 style={{ fontWeight: 500 }}>{title}</h4>
@@ -27,14 +27,15 @@ function PanelButton({ link, title, ...props }) {
   );
 }
 
-export default function SettingsPanel() {
+export default function SettingsPanel({ reset }) {
   const iconStyle = { width: "1.25rem", height: "1.25rem" };
   return (
-    <div style={{ width: '20rem'}}>
+    <div style={{ width: "20rem" }}>
       <Flex direction="row" justify="between" gap={12}>
         <Flex direction="row" gap={4}>
           <button
             type="button"
+            onClick={()=>reset}
             className="accentButton"
             style={{
               width: "2.5rem",
