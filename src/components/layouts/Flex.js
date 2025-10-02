@@ -1,4 +1,4 @@
-export default function Flex({ children, direction, gap, justify, style }) {
+export default function Flex({ children, direction, gap, justify, style,disabledCenter }) {
   let justifyType;
   switch (justify) {
     case "start":
@@ -20,7 +20,7 @@ export default function Flex({ children, direction, gap, justify, style }) {
         flexDirection: direction,
         gap: `calc(var(--unit)*${gap})`,
         justifyContent: justifyType,
-        alignItems: "center",
+        alignItems: disabledCenter ? null : "center",
         ...style,
       }}
     >

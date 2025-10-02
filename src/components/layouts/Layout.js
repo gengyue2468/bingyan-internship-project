@@ -9,14 +9,23 @@ export default function Layout({ title, children }) {
       <Head>
         <title>{title}</title>
       </Head>
-      <div>
-        <Flex direction="row" gap={4}>
-          <Sidebar />
-          <div>
-            <Topbar />
-            <main>{children}</main>
-          </div>
-        </Flex>
+      <Sidebar />
+      <div style={{ display: "flex", justifyContent: "end" }}>
+        <div
+          style={{
+            width: "calc(100% - 4.5rem)",
+          }}
+        >
+          <Topbar />
+          <main
+            style={{
+              paddingBlock: "5rem",
+              paddingInline: "1rem",
+            }}
+          >
+            {children}
+          </main>
+        </div>
       </div>
     </div>
   );

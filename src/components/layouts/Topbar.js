@@ -4,19 +4,27 @@ import Flex from "./Flex";
 
 export default function Topbar() {
   return (
-    <div style={{ position: "fixed", top: 0, width: "90%" }}>
+    <div
+      style={{
+        position: "fixed",
+        top: 0,
+        width: "100%",
+        background: "var(--background)",
+        zIndex: 5,
+      }}
+    >
       <div
         style={{
-          paddingInline: "2.5rem",
-          paddingBlock: "1.25rem",
+          paddingInline: "1rem",
+          paddingBlock: "1rem",
         }}
       >
         <Flex direction="row" gap={8} justify="between">
-          <div style={{ display: "relative", flex: 1 }}>
+          <div style={{ position: "relative", flex: 1 }}>
             <SearchIcon
               style={{
                 position: "absolute",
-                left: "3.5rem",
+                left: "1.25rem",
                 top: "50%",
                 transform: "translateY(-50%)",
                 width: "1.5rem",
@@ -30,7 +38,7 @@ export default function Topbar() {
               className="searchBar"
             />
           </div>
-          <div>
+          <div style={{ width: '8rem'}}>
             <Avatar src="/static/logo.webp" size={2} />
           </div>
         </Flex>
