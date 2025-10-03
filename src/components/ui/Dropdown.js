@@ -1,7 +1,12 @@
 import { useState, useEffect, useRef } from "react";
 import Flex from "../layouts/Flex";
 
-export default function DropDown({ menu, children, ...props }) {
+export default function DropDown({
+  menu,
+  children,
+  direction = "down",
+  ...props
+}) {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
 
@@ -18,6 +23,24 @@ export default function DropDown({ menu, children, ...props }) {
     };
   }, []);
 
+  let directionStyle;
+  switch (direction) {
+    case "down":
+      directionStyle = {
+        top: "4rem",
+        right: "0.5rem",
+        translate: `0 ${isOpen ? 0 : "-2rem"}`,
+      };
+      break;
+    case "up": {
+      directionStyle = {
+        bottom: "4rem",
+        right: "0.5rem",
+        translate: `0 ${isOpen ? 0 : "2rem"}`,
+      };
+    }
+  }
+
   return (
     <div ref={dropdownRef} style={{ position: "relative", zIndex: 2 }}>
       <button {...props} onClick={() => setIsOpen(!isOpen)}>
@@ -26,15 +49,15 @@ export default function DropDown({ menu, children, ...props }) {
       <div
         style={{
           position: "absolute",
-          top: "4rem",
-          right: "0.5rem",
+          ...directionStyle,
           opacity: isOpen ? 1 : 0,
           transitionProperty: "all",
           transitionDuration: "300ms",
-          translate: `0 ${isOpen ? 0 : "-2rem"}`,
+
           background: "var(--background)",
           border: "1px solid",
           borderColor: "var(--border)",
+          pointerEvents: isOpen ? "auto" : "none",
           zIndex: isOpen ? 21 : 0,
           paddingInline: "1rem",
           paddingBlock: "0.325rem",

@@ -15,7 +15,7 @@ import {
   SettingsLinear,
 } from "../ui/Icons";
 import NavButton from "../ui/NavButton";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PlusPanel from "@/contents/PlusPanel";
 import UpdatePanel from "@/contents/UpdatePanel";
 import SettingsPanel from "@/contents/SettingsPanel";
@@ -23,7 +23,7 @@ import MessagePanel from "@/contents/MessagePanel";
 import { useRouter } from "next/router";
 
 export default function Sidebar() {
-  const [activeIndex, setActiveIndex] = useState(1);
+  const [activeIndex, setActiveIndex] = useState(-1);
   const router = useRouter();
   const iconStyle = { width: "1.5rem", height: "1.5rem" };
   const navItems = [
@@ -34,23 +34,18 @@ export default function Sidebar() {
       filledIcon: <HomeFilled style={iconStyle} />,
     },
     {
-      title: "探索",
-      href: "/discover",
-      linearIcon: <CompassLinear style={iconStyle} />,
-      filledIcon: <CompassFilled style={iconStyle} />,
-    },
-    {
       title: "创建",
       linearIcon: <PlusLinear style={iconStyle} />,
       filledIcon: <PlusFilled style={iconStyle} />,
       pannelContent: <PlusPanel />,
+      translatePercent: "5%",
     },
     {
       title: "更新",
       linearIcon: <BellLinear style={iconStyle} />,
       filledIcon: <BellFilled style={iconStyle} />,
       pannelContent: <UpdatePanel />,
-      translatePercent: "35%",
+      translatePercent: "25%",
     },
     {
       title: "消息",
@@ -59,10 +54,17 @@ export default function Sidebar() {
       pannelContent: <MessagePanel reset={() => setActiveIndex(1)} />,
     },
   ];
+
+  useEffect(() => {
+    if (router.asPath === "/" && activeIndex === -1) {
+      setActiveIndex(1);
+    }
+  }, []);
+
   return (
     <div
       style={{
-        height: "100vh",
+        height: "100%",
         position: "fixed",
         left: 0,
         paddingInline: "0.75rem",
@@ -73,7 +75,7 @@ export default function Sidebar() {
         justifyItems: "center",
         alignContent: "center",
         background: "var(--background)",
-        zIndex: 10,
+        zIndex: 26,
       }}
     >
       <div
@@ -83,8 +85,8 @@ export default function Sidebar() {
         }}
         style={{
           position: "fixed",
-          width: activeIndex === 1 ? 0 : "100vw",
-          height: activeIndex === 1 ? 0 : "100vh",
+          width: activeIndex === 1 ? 0 : "100%",
+          height: activeIndex === 1 ? 0 : "100%",
           top: 0,
           left: 0,
           right: 0,

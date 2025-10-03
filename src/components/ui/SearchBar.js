@@ -84,26 +84,25 @@ export default function Searchbar() {
         position: "relative",
         paddingInline: "0.5rem",
         flex: 1,
-        zIndex: 15,
+        zIndex: isPressed ? 15 : 2,
       }}
     >
-      {!isPressed && (
-        <div
-          style={{
-            position: "absolute",
-            left: isPressed ? "-8rem" : "1.25rem",
-            top: "50%",
-            transform: "translateY(-50%)",
-            width: isPressed ? 0 : "1.5rem",
-            height: isPressed ? 0 : "1.5rem",
-            opacity: isPressed ? 0 : 1,
-            transitionProperty: "all",
-            transitionDuration: "500ms",
-          }}
-        >
-          <SearchIcon />
-        </div>
-      )}
+      <div
+        style={{
+          position: "absolute",
+          left: isPressed ? "0rem" : "1.25rem",
+          top: "50%",
+          transform: "translateY(-50%)",
+          width: isPressed ? 0 : "1.5rem",
+          height: isPressed ? 0 : "1.5rem",
+          opacity: isPressed ? 0 : 1,
+          transitionProperty: "all",
+          transitionDuration: "250ms",
+          overflow: "hidden",
+        }}
+      >
+        <SearchIcon />
+      </div>
 
       <input
         type="search"
@@ -164,12 +163,9 @@ export default function Searchbar() {
 
           <div
             style={{
-              display: "grid",
               marginTop: "1rem",
-              gridTemplateRows: "repeat(2, minmax(0, 1fr))",
-              gridTemplateColumns: "repeat(4, minmax(0, 1fr))",
-              gap: "0.5rem",
             }}
+            className="hot-items"
           >
             {hotItems.map((item, index) => (
               <PlusButton key={index} name={item.name} img={item.img} />

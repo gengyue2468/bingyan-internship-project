@@ -2,7 +2,7 @@ import Flex from "@/components/layouts/Flex";
 
 export default function UpdatePanel() {
   return (
-    <div style={{ height: "80vh" }}>
+    <div style={{ height: "60vh" }}>
       <h2>更新</h2>
       <Flex direction="column" gap={4}>
         <img src="/static/ill_sunglasses_spot_light-42e9d57e.svg" />

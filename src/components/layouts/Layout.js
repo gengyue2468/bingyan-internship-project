@@ -15,8 +15,10 @@ export default function Layout({ title, children }) {
           <Topbar />
           <main
             style={{
-              paddingBlock: "5rem",
+              paddingBlock: "6rem",
               paddingInline: "1rem",
+              transitionProperty: "all",
+              transitionDuration: "500ms",
             }}
           >
             {children}

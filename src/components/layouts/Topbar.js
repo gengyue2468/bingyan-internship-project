@@ -24,7 +24,6 @@ export default function Topbar() {
         style={{
           paddingInline: "1rem",
           paddingBlock: "1rem",
-          zIndex: 15,
         }}
       >
         <Flex direction="row" gap={8} justify="between">

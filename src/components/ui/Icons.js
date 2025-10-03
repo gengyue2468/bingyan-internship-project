@@ -277,6 +277,101 @@ const ChevronDownIcon = ({ ...props }) => (
   </svg>
 );
 
+const HeartIcon = ({ ...props }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" {...props} viewBox="0 0 24 24">
+    <path
+      fill="none"
+      stroke="currentColor"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="2"
+      d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676a.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5"
+    />
+  </svg>
+);
+
+const HeartIconFilled = ({ ...props }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" {...props} viewBox="0 0 24 24">
+    <path
+      fill="currentColor"
+      stroke="currentColor"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="2"
+      d="M17 4c-3.2 0-5 2.667-5 4c0-1.333-1.8-4-5-4S3 6.667 3 8c0 7 9 12 9 12s9-5 9-12c0-1.333-.8-4-4-4"
+    />
+  </svg>
+);
+
+const DownloadIcon = ({ ...props }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" {...props} viewBox="0 0 24 24">
+    <path
+      fill="currentColor"
+      d="m12 16l-5-5l1.4-1.45l2.6 2.6V4h2v8.15l2.6-2.6L17 11zm-6 4q-.825 0-1.412-.587T4 18v-3h2v3h12v-3h2v3q0 .825-.587 1.413T18 20z"
+    />
+  </svg>
+);
+
+const BanIcon = ({ ...props }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" {...props} viewBox="0 0 24 24">
+    <path
+      fill="none"
+      stroke="currentColor"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="2"
+      d="M3 12a9 9 0 1 0 18 0a9 9 0 1 0-18 0m2.7-6.3l12.6 12.6"
+    />
+  </svg>
+);
+
+const EyeOffIcon = ({ ...props }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" {...props} viewBox="0 0 24 24">
+    <path
+      fill="currentColor"
+      d="M2 5.27L3.28 4L20 20.72L18.73 22l-3.08-3.08c-1.15.38-2.37.58-3.65.58c-5 0-9.27-3.11-11-7.5c.69-1.76 1.79-3.31 3.19-4.54zM12 9a3 3 0 0 1 3 3a3 3 0 0 1-.17 1L11 9.17A3 3 0 0 1 12 9m0-4.5c5 0 9.27 3.11 11 7.5a11.8 11.8 0 0 1-4 5.19l-1.42-1.43A9.86 9.86 0 0 0 20.82 12A9.82 9.82 0 0 0 12 6.5c-1.09 0-2.16.18-3.16.5L7.3 5.47c1.44-.62 3.03-.97 4.7-.97M3.18 12A9.82 9.82 0 0 0 12 17.5c.69 0 1.37-.07 2-.21L11.72 15A3.064 3.064 0 0 1 9 12.28L5.6 8.87c-.99.85-1.82 1.91-2.42 3.13"
+    />
+  </svg>
+);
+
+const ArrowLeftIcon = ({ ...props }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" {...props} viewBox="0 0 24 24">
+    <path
+      fill="currentColor"
+      d="m10 18l-6-6l6-6l1.4 1.45L7.85 11H20v2H7.85l3.55 3.55z"
+    />
+  </svg>
+);
+
+const CommentIcon = ({ ...props }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" {...props} viewBox="0 0 24 24">
+    <path
+      fill="currentColor"
+      d="M7.291 20.824L2 22l1.176-5.291A9.96 9.96 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10s-4.477 10-10 10a9.96 9.96 0 0 1-4.709-1.176m.29-2.113l.653.35A7.96 7.96 0 0 0 12 20a8 8 0 1 0-8-8c0 1.335.325 2.617.94 3.766l.349.653l-.655 2.947z"
+    />
+  </svg>
+);
+
+const FullscreenIcon = ({ ...props }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" {...props} viewBox="0 0 24 24">
+    <path
+      fill="currentColor"
+      fill-rule="evenodd"
+      d="M12 4h6.586l-5.293 5.293l1.414 1.414L20 5.414V12h2V2H12zM4 18.586l5.293-5.293l1.414 1.414L5.414 20H12v2H2V12h2z"
+      clip-rule="evenodd"
+    />
+  </svg>
+);
+
+const MagicSearchIcon = ({ ...props }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" {...props} viewBox="0 0 16 16">
+    <path
+      fill="currentColor"
+      d="m10.878.282l.348 1.071a2.2 2.2 0 0 0 1.398 1.397l1.072.348l.021.006a.423.423 0 0 1 0 .798l-1.071.348a2.2 2.2 0 0 0-1.399 1.397l-.348 1.07a.423.423 0 0 1-.798 0l-.348-1.07a2.2 2.2 0 0 0-1.399-1.403l-1.072-.348a.423.423 0 0 1 0-.798l1.072-.348a2.2 2.2 0 0 0 1.377-1.397l.348-1.07a.423.423 0 0 1 .799 0m4.905 7.931l-.765-.248a1.58 1.58 0 0 1-1-.999l-.248-.764a.302.302 0 0 0-.57 0l-.25.764a1.58 1.58 0 0 1-.983.999l-.765.248a.303.303 0 0 0 0 .57l.765.249a1.58 1.58 0 0 1 1 1.002l.248.764a.302.302 0 0 0 .57 0l.249-.764a1.58 1.58 0 0 1 .999-.999l.765-.248a.303.303 0 0 0 0-.57zM6.5 1c.738 0 1.442.145 2.085.409q-.044.054-.093.104c-.13.13-.29.24-.45.29l-1.091.35a1.44 1.44 0 0 0-.546.348a4 4 0 1 0 3.6 5.926l-.001.077c0 .27.08.531.24.752s.38.38.65.48l.043.014l-.054.073l1.447 1.447q.15.297.426.5q.084.057.175.1l.85.85a.75.75 0 1 1-1.061 1.06l-2.897-2.897A5.5 5.5 0 1 1 6.5 1"
+    />
+  </svg>
+);
+
 export {
   PinterestIcon,
   HomeLinear,
@@ -302,4 +397,13 @@ export {
   LinkIcon,
   UploadIcon,
   ChevronDownIcon,
+  HeartIcon,
+  BanIcon,
+  EyeOffIcon,
+  DownloadIcon,
+  ArrowLeftIcon,
+  HeartIconFilled,
+  CommentIcon,
+  MagicSearchIcon,
+  FullscreenIcon,
 };

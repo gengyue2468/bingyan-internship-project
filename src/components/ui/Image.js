@@ -3,11 +3,18 @@ import { useEffect, useState } from "react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import Flex from "../layouts/Flex";
 import { DotsIcon, LinkIcon, UploadIcon } from "./Icons";
+import { useRouter } from "next/router";
+import Link from "next/link";
+import DropDown from "./Dropdown";
+import ImageOptions from "@/contents/ImageOptions";
 
-export default function Image({ ...props }) {
+export default function Image({ index, ...props }) {
   const [imageData, setImageData] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [isHover, setIsHover] = useState(false);
+  const [isError, setIsError] = useState(false);
+
+  const router = useRouter();
 
   useEffect(() => {
     async function getImage() {
@@ -17,44 +24,69 @@ export default function Image({ ...props }) {
         setImageData(data.data[0]);
       } else {
         console.error("获取图片失败!");
+        setIsError(true);
       }
     }
     getImage();
   }, []);
 
-  const aspectRatio = imageData
-    ? (imageData.height / imageData.width) * 100
-    : 0;
+  const aspectRatio = imageData ? imageData.width / imageData.height : 1;
+  const display = isHover && isLoaded && !isError;
   return (
     <div
       onMouseEnter={() => setIsHover(true)}
       onMouseLeave={() => setIsHover(false)}
-      style={{ position: "relative", marginBlock: "0.5rem", zIndex: 0 }}
+      style={{
+        position: "relative",
+        marginBottom: "1rem",
+        zIndex: 0,
+        breakInside: "avoid",
+        width: "100%",
+        aspectRatio: aspectRatio,
+        borderRadius: "1rem",
+        transitionProperty: "all",
+        transitionDuration: "500ms",
+        display: "block",
+      }}
       {...props}
     >
-      {!isLoaded && imageData && (
+      {!isLoaded && (
         <div
           style={{
-            width: "100%",
-            paddingTop: `${aspectRatio}%`,
-            backgroundColor: "var(--accent)",
-            borderRadius: "1rem",
             position: "absolute",
-            top: 0,
-            left: 0,
+            backgroundColor: "var(--accent)",
+            width: "100%",
+            height: "100%",
+            borderRadius: "1rem",
           }}
         />
       )}
-      <LazyLoadImage
-        effect="blur"
-        src={imageData?.urls.original}
+
+      <Link
+        href={{
+          pathname: `/pin/${imageData?.pid}`,
+          query: { imageData: JSON.stringify(imageData) },
+        }}
         style={{
-          borderRadius: "1rem",
+          position: "relative",
+          zIndex: imageData ? 7 : -1,
+          display: "block",
           width: "100%",
           height: "100%",
         }}
-        onLoad={() => setIsLoaded(true)}
-      />
+      >
+        <LazyLoadImage
+          effect="blur"
+          src={imageData?.urls.original}
+          style={{
+            borderRadius: "1rem",
+            width: "100%",
+            height: "100%",
+            zIndex: 0,
+          }}
+          onLoad={() => setIsLoaded(true)}
+        />
+      </Link>
 
       <div
         style={{
@@ -65,79 +97,89 @@ export default function Image({ ...props }) {
           right: 0,
           bottom: 0,
           left: 0,
-          width: isHover ? "100%" : 0,
-          height: isHover ? "100%" : 0,
-          zIndex: 10,
+          width: display ? "100%" : 0,
+          height: display ? "100%" : 0,
+          zIndex: 8,
           transitionProperty: "all",
-          transitionDuration: "100ms",
+          transitionDuration: "0ms",
+          pointerEvents: "none",
         }}
       />
 
-      {isHover && (
+      <button
+        type="button"
+        style={{
+          position: "absolute",
+          opacity: display ? 1 : 0,
+          top: display ? "16px" : 0,
+          right: "16px",
+          fontWeight: 500,
+          background: "var(--bingo)",
+          paddingInline: "1rem",
+          paddingBlock: "0.75rem",
+          borderRadius: "1rem",
+          whiteSpace: "nowrap",
+          textAlign: "center",
+          zIndex: 9,
+          color: "#fff",
+          transitionProperty: "all",
+          transitionDuration: "250ms",
+        }}
+        className="normalButton"
+      >
+        保存
+      </button>
+
+      <Flex
+        direction="between"
+        justify="between"
+        style={{
+          position: "absolute",
+          opacity: display ? 1 : 0,
+          bottom: display ? "16px" : 0,
+          left: "16px",
+          right: "16px",
+          zIndex: 10,
+          transitionProperty: "all",
+          transitionDuration: "250ms",
+        }}
+      >
         <button
           type="button"
+          className="normalButton"
           style={{
-            position: "absolute",
-            top: "16px",
-            right: "16px",
             fontWeight: 500,
-            background: "var(--bingo)",
+            background: "var(--background)",
             paddingInline: "1rem",
             paddingBlock: "0.75rem",
             borderRadius: "1rem",
-            whiteSpace: "nowrap",
-            textAlign: "center",
-            zIndex: 15,
-            color: "#fff",
+            display: "flex",
+            alignContent: "center",
+            gap: "0.25rem",
           }}
-          className="normalButton"
         >
-          保存
+          <span>访问网站</span>
+          <span>
+            <LinkIcon style={{ width: "1rem", height: "1rem" }} />
+          </span>
         </button>
-      )}
 
-      {isHover && (
-        <Flex
-          direction="between"
-          justify="between"
-          style={{
-            position: "absolute",
-            bottom: "16px",
-            left: "16px",
-            right: "16px",
-            zIndex: 15,
-          }}
-        >
-          <button
-            type="button"
-            className="normalButton"
-            style={{
-              fontWeight: 500,
-              background: "var(--background)",
-              paddingInline: "1rem",
-              paddingBlock: "0.75rem",
-              borderRadius: "1rem",
-              display: "flex",
-              alignContent: "center",
-              gap: "0.25rem",
-            }}
-          >
-            <span>访问网站</span>
-            <span>
-              <LinkIcon style={{ width: "1rem", height: "1rem" }} />
-            </span>
+        <Flex direction="row" gap={1}>
+          <button className="iconButton normalButton">
+            <UploadIcon style={{ width: "1.75rem", height: "1.75rem" }} />
           </button>
-
-          <Flex direction="row" gap={1}>
-            <button className="iconButton normalButton">
-              <UploadIcon style={{ width: "1.75rem", height: "1.75rem" }} />
-            </button>
-            <button className="iconButton normalButton">
+          <div style={{ position: "relative" }}>
+            <DropDown
+              menu={<ImageOptions />}
+              direction="up"
+              className="iconButton normalButton"
+              style={{ zIndex: 25 }}
+            >
               <DotsIcon style={{ width: "1.75rem", height: "1.75rem" }} />
-            </button>
-          </Flex>
+            </DropDown>
+          </div>
         </Flex>
-      )}
+      </Flex>
     </div>
   );
 }

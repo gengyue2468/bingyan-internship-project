@@ -22,7 +22,7 @@ export default function Panel({ display, translatePercent = "50%", children }) {
         fontWeight: 400,
         textAlign: "left",
         boxShadow: "0 1px 4px var(--accent)",
-        zIndex: 15,
+        zIndex: 25,
         pointerEvents: display ? "auto" : "none",
       }}
     >
