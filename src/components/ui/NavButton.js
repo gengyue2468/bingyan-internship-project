@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Tooltip from "./Tooltip";
 import Panel from "./Panel";
+import { useDeviceType } from "@/hooks/useDeviceType";
 
 export default function NavButton({
   linearIcon,
@@ -13,6 +14,7 @@ export default function NavButton({
   ...props
 }) {
   const [isHover, setIsHover] = useState(false);
+  const isMobile = useDeviceType();
   return (
     <div style={{ position: "relative" }}>
       <button
@@ -24,9 +26,17 @@ export default function NavButton({
       >
         {isPressed ? filledIcon : linearIcon}
       </button>
-      <Tooltip display={isHover} information={title} />
+      <Tooltip
+        display={isHover}
+        information={title}
+        direction={isMobile ? "up" : "right"}
+      />
       {!disabledPanel && (
-        <Panel display={isPressed} translatePercent={translatePercent}>
+        <Panel
+          display={isPressed}
+          translatePercent={translatePercent}
+          direction={isMobile ? "up" : "right"}
+        >
           {pannelContent && pannelContent}
         </Panel>
       )}

@@ -22,7 +22,7 @@ export default function Tooltip({ display, information, direction = "right" }) {
         transform: "translateX(-50%)",
       };
       break;
-    case "top":
+    case "up":
       directionStyle = {
         bottom: "3.25rem",
         left: "50%",

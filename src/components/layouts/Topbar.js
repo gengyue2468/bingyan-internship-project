@@ -6,16 +6,18 @@ import Flex from "./Flex";
 import DropDown from "../ui/Dropdown";
 import UserMenuContent from "@/contents/UserMenuContent";
 import Searchbar from "../ui/SearchBar";
+import { useDeviceType } from "@/hooks/useDeviceType";
 
 export default function Topbar() {
   const [avatarIsHovered, setAvatarIsHovered] = useState(false);
   const [accountIsHovered, setAccountIsHovered] = useState(false);
+  const isMobile = useDeviceType();
   return (
     <div
       style={{
         position: "fixed",
         top: 0,
-        width: "calc(100% - 4.5rem)",
+        width: isMobile ? "100%" : "calc(100% - 4.5rem)",
         background: "var(--background)",
         zIndex: 15,
       }}
@@ -26,7 +28,7 @@ export default function Topbar() {
           paddingBlock: "1rem",
         }}
       >
-        <Flex direction="row" gap={8} justify="between">
+        <Flex direction="row" gap={isMobile ? 2 : 8} justify="between">
           <Searchbar />
           <Flex gap={2} style={{ zIndex: 15 }}>
             <div style={{ position: "relative" }}>

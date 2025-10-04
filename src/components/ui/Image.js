@@ -75,9 +75,9 @@ export default function Image({ index, ...props }) {
           height: "100%",
         }}
       >
-        <LazyLoadImage
-          effect="blur"
+        <img
           src={imageData?.urls.original}
+          alt={imageData?.title}
           style={{
             borderRadius: "1rem",
             width: "100%",

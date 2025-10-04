@@ -1,14 +1,51 @@
-export default function Panel({ display, translatePercent = "50%", children }) {
+export default function Panel({
+  display,
+  translatePercent = "50%",
+  children,
+  direction = "right",
+}) {
+  let directionStyle;
+  switch (direction) {
+    case "right":
+      directionStyle = {
+        left: "5rem",
+        top: "50%",
+        transform: `translateY(-${translatePercent})`,
+        translate: `${display ? "0.5rem" : "0px"} 0`,
+      };
+      break;
+    case "left":
+      directionStyle = {
+        right: "5rem",
+        top: "50%",
+        transform: `translateY(-${translatePercent})`,
+        translate: `${display ? "-0.5rem" : "0px"} 0`,
+      };
+      break;
+    case "down":
+      directionStyle = {
+        top: "5rem",
+        left: "50%",
+        transform: `translateX(-${translatePercent})`,
+        translate: `0 ${display ? "0.5rem" : "0px"}`,
+      };
+      break;
+    case "up":
+      directionStyle = {
+        bottom: "5rem",
+        left: "50%",
+        transform: `translateX(-${translatePercent})`,
+        translate: `0 ${display ? "-0.5rem" : "0px"}`,
+      };
+      break;
+  }
   return (
     <div
       style={{
         position: "absolute",
-        left: "5rem",
-        top: "50%",
-        transform: `translateY(-${translatePercent})`,
+        ...directionStyle,
         transitionProperty: "all",
         transitionDuration: "500ms",
-        translate: `${display ? "0.5rem" : "0px"} 0`,
         opacity: display ? 1 : 0,
         background: "var(--background)",
         color: "var(--foreground)",

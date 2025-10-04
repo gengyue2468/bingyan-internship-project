@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { SearchIcon } from "./Icons";
+import { SearchIcon, XIcon } from "./Icons";
 import Flex from "../layouts/Flex";
+import { useDeviceType } from "@/hooks/useDeviceType";
 
 function PlusButton({ img, name, ...props }) {
   return (
@@ -78,13 +79,15 @@ export default function Searchbar() {
       img: "/static/cate/51d25b8b2581151eb3bc2133781a421c.jpg",
     },
   ];
+
+  const isMobile = useDeviceType();
   return (
     <div
       style={{
         position: "relative",
         paddingInline: "0.5rem",
         flex: 1,
-        zIndex: isPressed ? 15 : 2,
+        zIndex: isPressed ? 27 : 2,
       }}
     >
       <div
@@ -116,6 +119,23 @@ export default function Searchbar() {
         }}
         className="searchBar"
       />
+
+      {isMobile && (
+        <button
+          onClick={() => setIsPressed(false)}
+          type="button"
+          className="normalButton iconButton ghostButton"
+          style={{
+            position: "absolute",
+            top: "0.3rem",
+            right: "-2.5rem",
+            padding: "0.25rem",
+            zIndex: 99,
+          }}
+        >
+          <XIcon />
+        </button>
+      )}
       {isPressed && (
         <div
           onClick={(e) => {
@@ -141,10 +161,12 @@ export default function Searchbar() {
         <div
           style={{
             position: "absolute",
-            width: "100%",
+            width: isMobile ? "calc(100% + 6rem)" : "100%",
             height: "fit-content",
+            maxHeight: "100vh",
             paddingInline: "2rem",
             paddingBlock: "2rem",
+            translate: isMobile && "-1rem 0",
             top: 0,
             left: 0,
             right: 0,
@@ -157,6 +179,8 @@ export default function Searchbar() {
             borderBottom: "1px solid",
             borderInline: "1px solid",
             borderColor: "var(--border)",
+            overflowY: isMobile ? "scroll" : "auto",
+            paddingBottom: isMobile ? "6rem" : "1rem",
           }}
         >
           <h3 style={{ marginTop: "4rem" }}>Pinterest 上的热门</h3>

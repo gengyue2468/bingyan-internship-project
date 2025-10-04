@@ -279,3 +279,24 @@ button {
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 }
+
+.sidebar {
+  left: 0;
+  padding-inline: 0.75rem;
+  padding-block: 1.25rem;
+  width: 4.5rem;
+  height: 100%;
+  border-right: 1px solid var(--border);
+}
+
+@media screen and (max-width: 768px) {
+  .sidebar {
+    bottom: 0;
+    padding-inline: 0.5rem;
+    padding-block: 0.75rem;
+    width: 100%;
+    border-top: 1px solid var(--border);
+    border-right: 0px transparent;
+    height: 4rem;
+  }
+}
