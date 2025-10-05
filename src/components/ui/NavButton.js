@@ -23,6 +23,8 @@ export default function NavButton({
         {...props}
         onMouseEnter={() => setIsHover(true)}
         onMouseLeave={() => setIsHover(false)}
+        onTouchStart={() => setIsHover(true)}
+        onTouchCancel={() => setIsHover(false)}
       >
         {isPressed ? filledIcon : linearIcon}
       </button>

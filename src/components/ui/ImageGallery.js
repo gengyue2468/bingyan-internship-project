@@ -1,6 +1,16 @@
 import { useState } from "react";
 import Flex from "../layouts/Flex";
-import { FullscreenIcon, MagicSearchIcon, LinkIcon } from "./Icons";
+import {
+  FullscreenIcon,
+  MagicSearchIcon,
+  LinkIcon,
+  Link2Icon,
+  XIcon,
+  PlusIcon,
+  MinusIcon,
+} from "./Icons";
+import IconButton from "./IconButton";
+import { useDeviceType } from "@/hooks/useDeviceType";
 
 function Button({ text, icon, width, ...props }) {
   const [isHover, setIsHover] = useState(false);
@@ -19,6 +29,7 @@ function Button({ text, icon, width, ...props }) {
         opacity: 0.9,
         fontWeight: 500,
       }}
+      {...props}
     >
       <Flex direction="row" gap={isHover ? 2 : 0}>
         <div
@@ -40,15 +51,171 @@ function Button({ text, icon, width, ...props }) {
 
 export default function ImageGallery({ src, aspectRatio }) {
   const [isHover, setIsHover] = useState(false);
+  const [isFullscreen, setIsFullscreen] = useState(false);
+  const [scale, setScale] = useState(1);
   const iconStyle = { height: "1.5rem", width: "1.5rem" };
+  const imgStyle = {
+    borderRadius: "1rem",
+    width: "100%",
+    height: "100%",
+    aspectRatio: aspectRatio,
+  };
+  const absoluteImgStyle = {
+    borderRadius: "1rem",
+    width: "100%",
+    height: isFullscreen && "100%",
+    position: isFullscreen ? "fixed" : "absolute",
+    top: 0,
+    right: 0,
+    bottom: 0,
+    left: 0,
+    grayscale: 0,
+    zIndex: isFullscreen ? 9999 : 1,
+    display: "flex",
+    justifyContent: "center",
+  };
+  const isMobile = useDeviceType();
   return (
     <div
-      style={{ position: "relative" }}
+      style={{ position: !isFullscreen && "relative" }}
       onMouseEnter={() => setIsHover(true)}
       onMouseLeave={() => setIsHover(false)}
     >
-      <img src={src} style={{ borderRadius: "1rem", width: "100%",aspectRatio: aspectRatio }} />
-      <div style={{ position: "absolute", bottom: "1rem", right: "1rem" }}>
+      <img src={src} style={imgStyle} />
+      <div style={absoluteImgStyle}>
+        <div
+          style={{
+            position: "relative",
+            transitionProperty: "all",
+            transitionDuration: "500ms",
+          }}
+        >
+          <img
+            src={src}
+            style={{
+              borderRadius: "1rem",
+              height: "100%",
+              scale: 1 * scale,
+              transitionProperty: "all",
+              transitionDuration: "500ms",
+            }}
+          />
+          {isFullscreen && (
+            <div
+              style={{
+                position: "absolute",
+                bottom: "1rem",
+                left: isMobile ? "4rem" : "auto",
+                right: isMobile ? "auto" : "1rem",
+                zIndex: 2,
+              }}
+            >
+              <Flex
+                direction="column"
+                disabledCenter={true}
+                gap={2}
+                style={{ alignItems: "end" }}
+              >
+                <Button
+                  text="访问网站"
+                  width="4rem"
+                  icon={<Link2Icon style={iconStyle} />}
+                />
+                <Button
+                  text="探索"
+                  width="2rem"
+                  icon={<MagicSearchIcon style={iconStyle} />}
+                />
+              </Flex>
+            </div>
+          )}
+        </div>
+      </div>
+
+      {isFullscreen && (
+        <div
+          style={{
+            zIndex: 999,
+            background: "#000000",
+            opacity: 0.8,
+            backdropFilter: "blur(15px)",
+            position: "fixed",
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            width: "100vw",
+            height: "100%",
+          }}
+        />
+      )}
+
+      {isFullscreen && (
+        <Flex
+          direction="row"
+          justify="between"
+          style={{
+            position: "fixed",
+            top: "1rem",
+            left: "1rem",
+            right: "1rem",
+            zIndex: 9999,
+          }}
+        >
+          <IconButton icon={<XIcon />} onClick={() => setIsFullscreen(false)} />
+          <button
+            type="button"
+            style={{
+              fontWeight: 500,
+              background: "var(--bingo)",
+              paddingInline: "1rem",
+              paddingBlock: "0.75rem",
+              borderRadius: "1rem",
+              whiteSpace: "nowrap",
+              textAlign: "center",
+              color: "#fff",
+              transitionProperty: "all",
+              transitionDuration: "250ms",
+            }}
+            className="normalButton"
+          >
+            保存
+          </button>
+        </Flex>
+      )}
+
+      {isFullscreen && (
+        <Flex
+          direction="column"
+          gap={2}
+          style={{
+            position: "fixed",
+            bottom: "1rem",
+            right: "1rem",
+            zIndex: 9999,
+          }}
+        >
+          <IconButton
+            icon={<PlusIcon />}
+            onClick={() => setScale(scale + 0.5)}
+            disabled={scale >= 2}
+          />
+          <IconButton
+            icon={<MinusIcon />}
+            onClick={() => setScale(scale - 0.5)}
+            disabled={scale <= 1}
+          />
+        </Flex>
+      )}
+
+      <div
+        style={{
+          position: "absolute",
+          bottom: "1rem",
+          right: "1rem",
+          zIndex: 2,
+        }}
+      >
         <Flex
           direction="column"
           disabledCenter={true}
@@ -56,6 +223,7 @@ export default function ImageGallery({ src, aspectRatio }) {
           style={{ alignItems: "end" }}
         >
           <Button
+            onClick={() => setIsFullscreen(!isFullscreen)}
             text="放大查看"
             width="4rem"
             icon={<FullscreenIcon style={iconStyle} />}

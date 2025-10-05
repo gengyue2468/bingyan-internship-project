@@ -1,9 +1,12 @@
+import { useDeviceType } from "@/hooks/useDeviceType";
+
 export default function Panel({
   display,
   translatePercent = "50%",
   children,
   direction = "right",
 }) {
+  const isMobile = useDeviceType();
   let directionStyle;
   switch (direction) {
     case "right":
@@ -32,7 +35,7 @@ export default function Panel({
       break;
     case "up":
       directionStyle = {
-        bottom: "5rem",
+        bottom: isMobile ? "0.5rem" : "5rem",
         left: "50%",
         transform: `translateX(-${translatePercent})`,
         translate: `0 ${display ? "-0.5rem" : "0px"}`,
@@ -52,14 +55,15 @@ export default function Panel({
         borderRadius: "1rem",
         border: "1px solid",
         borderColor: "var(--border)",
-        paddingInline: "1.5rem",
-        paddingBlock: "2rem",
+        paddingInline: isMobile ? "1rem" : "1.5rem",
+        paddingBlock: isMobile ? "1.5rem" : "2rem",
         minWidth: "100%",
         whiteSpace: "nowrap",
         fontWeight: 400,
         textAlign: "left",
         boxShadow: "0 1px 4px var(--accent)",
         zIndex: 25,
+        scale: isMobile ? 0.8 : 1,
         pointerEvents: display ? "auto" : "none",
       }}
     >

@@ -35,7 +35,7 @@ export default function SettingsPanel({ reset }) {
         <Flex direction="row" gap={4}>
           <button
             type="button"
-            onClick={()=>reset}
+            onClick={()=>reset()}
             className="accentButton"
             style={{
               width: "2.5rem",

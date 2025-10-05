@@ -40,6 +40,8 @@ body {
   font-family: "Mona Sans", "Noto Sans SC", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  transition-property: "all";
+  transition-duration: "500ms";
 }
 
 * {
@@ -135,6 +137,11 @@ button {
 .normalButton:active {
   scale: 0.95;
   transition-duration: 300ms;
+}
+
+.invertButton:focus {
+  background-color: var(--foreground);
+  color: var(--background);
 }
 
 .searchBar {

@@ -38,21 +38,21 @@ export default function Sidebar() {
       linearIcon: <PlusLinear style={iconStyle} />,
       filledIcon: <PlusFilled style={iconStyle} />,
       pannelContent: <PlusPanel />,
-      translatePercent: isMobile ? "50%" : "5%",
+      translatePercent: isMobile ? "55%" : "5%",
     },
     {
       title: "更新",
       linearIcon: <BellLinear style={iconStyle} />,
       filledIcon: <BellFilled style={iconStyle} />,
       pannelContent: <UpdatePanel />,
-      translatePercent: isMobile ? "50%" : "25%",
+      translatePercent: isMobile ? "70%" : "25%",
     },
     {
       title: "消息",
       linearIcon: <ChatLinear style={iconStyle} />,
       filledIcon: <ChatFilled style={iconStyle} />,
       pannelContent: <MessagePanel reset={() => setActiveIndex(1)} />,
-      translatePercent: isMobile ? "65%" : "50%",
+      translatePercent: isMobile ? "85%" : "50%",
     },
   ];
 
@@ -88,8 +88,8 @@ export default function Sidebar() {
           right: 0,
           bottom: 0,
           background: "transparent",
-          zIndex: activeIndex === 1 ? -9999 : 0,
-          pointerEvents: activeIndex !== 1 ? "auto" : "none",
+          zIndex: activeIndex === -1 ? -9999 : 0,
+          pointerEvents: activeIndex !== -1 ? "auto" : "none",
         }}
       />
       <Flex
@@ -104,8 +104,8 @@ export default function Sidebar() {
           isPressed={activeIndex === 0}
           disabledPanel={true}
           onClick={() => {
-            setActiveIndex(1);
             router.push("/");
+            setActiveIndex(1);
           }}
         />
         <Flex
@@ -127,9 +127,10 @@ export default function Sidebar() {
                 }
                 disabledPanel={index === 0}
                 isPressed={activeIndex === index + 1}
-                onClick={() =>
-                  setActiveIndex(activeIndex === index + 1 ? -1 : index + 1)
-                }
+                onClick={() => {
+                  index === 0 && router.push("/");
+                  setActiveIndex(activeIndex === index + 1 ? -1 : index + 1);
+                }}
               />
             ))}
           </Flex>
@@ -140,7 +141,7 @@ export default function Sidebar() {
               filledIcon={<SettingsFilled style={iconStyle} />}
               isPressed={activeIndex === navItems.length + 1}
               pannelContent={<SettingsPanel reset={() => setActiveIndex(1)} />}
-              translatePercent={isMobile ? "95%" : "100%"}
+              translatePercent={isMobile ? "105%" : "100%"}
               onClick={() =>
                 setActiveIndex(
                   activeIndex === navItems.length + 1 ? -1 : navItems.length + 1

@@ -11,6 +11,10 @@ import Flex from "./Flex";
 import ImageGallery from "../ui/ImageGallery";
 import moment from "moment";
 import Image from "../ui/Image";
+import { useDeviceType } from "@/hooks/useDeviceType";
+import DropDown from "../ui/Dropdown";
+import ImageDetailOptions from "@/contents/ImageDetailOptions";
+import Share from "@/contents/Share";
 
 export default function ImageDetailDisplay({
   imgUrl,
@@ -25,6 +29,7 @@ export default function ImageDetailDisplay({
   const [like, setLike] = useState(false);
   const [likeCount, setLikeCount] = useState(1144);
   const aspectRadio = width && height ? width / height : 1;
+  const isMobile = useDeviceType();
   return (
     <div>
       <div
@@ -32,18 +37,18 @@ export default function ImageDetailDisplay({
           border: "1px solid var(--border)",
           borderRadius: "1rem",
           background: "var(--background)",
-          paddingInline: "1rem",
+          paddingInline: isMobile ? "0.5rem" : "1rem",
           paddingBlock: "1rem",
           width: "100%",
         }}
       >
         <Flex
           direction="row"
-          gap={4}
+          gap={isMobile ? 1 : 4}
           justify="between"
           style={{ width: "100%" }}
         >
-          <Flex direction="row" gap={4}>
+          <Flex direction="row" gap={isMobile ? 1 : 4}>
             <Flex direction="row" gap={1}>
               <IconButton
                 icon={
@@ -61,8 +66,22 @@ export default function ImageDetailDisplay({
               {likeCount}
             </Flex>
             <IconButton icon={<CommentIcon />} />
-            <IconButton icon={<UploadIcon />} />
-            <IconButton icon={<DotsIcon />} />
+            <DropDown
+              style={{ height: "3rem", width: "3rem" }}
+              className="invertButton ghostButton normalButton"
+              menu={<Share />}
+              center
+            >
+              <UploadIcon />
+            </DropDown>
+            <DropDown
+              style={{ height: "3rem", width: "3rem" }}
+              menu={<ImageDetailOptions />}
+              className="invertButton ghostButton normalButton"
+              center
+            >
+              <DotsIcon />
+            </DropDown>
           </Flex>
           <button
             type="button"
@@ -91,7 +110,7 @@ export default function ImageDetailDisplay({
           style={{
             marginTop: "1rem",
             marginBottom: "4rem",
-            paddingInline: "4rem",
+            paddingInline: isMobile ? "0.5rem" : "4rem",
           }}
         >
           <ImageGallery aspectRadio={aspectRadio} src={imgUrl} />
@@ -121,8 +140,7 @@ export default function ImageDetailDisplay({
               </span>
             ))}
           </p>
-          <p style={{ opacity: 0.75 }}>分级：{rate ? "是" : "非"} R18</p>
-
+          
           <div style={{ marginTop: "3rem" }}>
             <h3>尚无评论</h3>
           </div>

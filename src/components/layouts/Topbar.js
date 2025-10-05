@@ -19,6 +19,7 @@ export default function Topbar() {
         top: 0,
         width: isMobile ? "100%" : "calc(100% - 4.5rem)",
         background: "var(--background)",
+        borderBottom: "1px solid var(--border)",
         zIndex: 15,
       }}
     >

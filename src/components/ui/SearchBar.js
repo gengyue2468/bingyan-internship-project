@@ -108,11 +108,11 @@ export default function Searchbar() {
       </div>
 
       <input
-        type="search"
+        type="text"
         onMouseDown={() => setIsPressed(true)}
         placeholder="搜索..."
         style={{
-          width: "100%",
+          width: isMobile && isPressed ? "115%" : "100%",
           height: "100%",
           paddingInline: isPressed ? "0.75rem" : "3.25rem",
           zIndex: 15,
@@ -120,7 +120,7 @@ export default function Searchbar() {
         className="searchBar"
       />
 
-      {isMobile && (
+      {isMobile && isPressed && (
         <button
           onClick={() => setIsPressed(false)}
           type="button"
@@ -128,12 +128,13 @@ export default function Searchbar() {
           style={{
             position: "absolute",
             top: "0.3rem",
-            right: "-2.5rem",
+            right: "-5rem",
             padding: "0.25rem",
             zIndex: 99,
+            background: isPressed ? "var(--accent)" : "transparent",
           }}
         >
-          <XIcon />
+          <XIcon style={{ width: "1.5rem" }} />
         </button>
       )}
       {isPressed && (
@@ -161,13 +162,13 @@ export default function Searchbar() {
         <div
           style={{
             position: "absolute",
-            width: isMobile ? "calc(100% + 6rem)" : "100%",
+            width: isMobile ? "100vw" : "100%",
             height: "fit-content",
             maxHeight: "100vh",
             paddingInline: "2rem",
             paddingBlock: "2rem",
             translate: isMobile && "-1rem 0",
-            top: 0,
+            top: "-1rem",
             left: 0,
             right: 0,
             bottom: 0,

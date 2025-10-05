@@ -1,5 +1,6 @@
 import Flex from "@/components/layouts/Flex";
 import { CutIcon, PanelIcon, PinIcon } from "@/components/ui/Icons";
+import { useDeviceType } from "@/hooks/useDeviceType";
 
 function PlusButton({ icon, title, desc, ...props }) {
   return (
@@ -28,7 +29,11 @@ function PlusButton({ icon, title, desc, ...props }) {
           justify="start"
           disabledCenter={true}
           gap={1}
-          style={{ textAlign: "left" }}
+          style={{
+            textAlign: "left",
+            whiteSpace: "wrap",
+            width: "calc(100% - 5rem)",
+          }}
         >
           <h3>{title}</h3>
           <p style={{ opacity: 0.8 }}>{desc}</p>
@@ -57,8 +62,9 @@ export default function PlusPanel() {
       icon: <CutIcon style={iconStyle} />,
     },
   ];
+  const isMobile = useDeviceType();
   return (
-    <div>
+    <div style={{ width: isMobile ? "24rem" : "28rem" }}>
       <h2 style={{ marginBottom: "1rem" }}>创建</h2>
       <Flex direction="column" gap={4}>
         {PlusItems.map((item, index) => (

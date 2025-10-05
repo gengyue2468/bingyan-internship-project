@@ -5,6 +5,7 @@ export default function DropDown({
   menu,
   children,
   direction = "down",
+  center,
   ...props
 }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -53,7 +54,7 @@ export default function DropDown({
           opacity: isOpen ? 1 : 0,
           transitionProperty: "all",
           transitionDuration: "300ms",
-
+          transform: center && "translateX(50%)",
           background: "var(--background)",
           border: "1px solid",
           borderColor: "var(--border)",
