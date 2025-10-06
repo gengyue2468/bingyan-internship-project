@@ -11,6 +11,7 @@ import {
 } from "./Icons";
 import IconButton from "./IconButton";
 import { useDeviceType } from "@/hooks/useDeviceType";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 function Button({ text, icon, width, ...props }) {
   const [isHover, setIsHover] = useState(false);
@@ -49,7 +50,7 @@ function Button({ text, icon, width, ...props }) {
   );
 }
 
-export default function ImageGallery({ src, aspectRatio }) {
+export default function ImageGallery({ src, isLoaded, title, width, height }) {
   const [isHover, setIsHover] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [scale, setScale] = useState(1);
@@ -57,13 +58,10 @@ export default function ImageGallery({ src, aspectRatio }) {
   const imgStyle = {
     borderRadius: "1rem",
     width: "100%",
-    height: "100%",
-    aspectRatio: aspectRatio,
   };
   const absoluteImgStyle = {
     borderRadius: "1rem",
     width: "100%",
-    height: isFullscreen && "100%",
     position: isFullscreen ? "fixed" : "absolute",
     top: 0,
     right: 0,
@@ -73,15 +71,28 @@ export default function ImageGallery({ src, aspectRatio }) {
     zIndex: isFullscreen ? 9999 : 1,
     display: "flex",
     justifyContent: "center",
+    transitionDuration: "500ms",
+    transitionProperty: "all",
+    scale: isFullscreen ? 1.01 : 1,
   };
   const isMobile = useDeviceType();
   return (
     <div
-      style={{ position: !isFullscreen && "relative" }}
+      style={{
+        position: !isFullscreen && "relative",
+        background: "var(--accent)",
+        borderRadius: "1rem",
+      }}
       onMouseEnter={() => setIsHover(true)}
       onMouseLeave={() => setIsHover(false)}
+      className={!isLoaded && "skeleton"}
     >
-      <img src={src} style={imgStyle} />
+      <LazyLoadImage
+        effect="blur"
+        alt={title}
+        src={src}
+        style={{ ...imgStyle }}
+      />
       <div style={absoluteImgStyle}>
         <div
           style={{
@@ -90,7 +101,8 @@ export default function ImageGallery({ src, aspectRatio }) {
             transitionDuration: "500ms",
           }}
         >
-          <img
+          <LazyLoadImage
+            alt={title}
             src={src}
             style={{
               borderRadius: "1rem",
@@ -122,7 +134,7 @@ export default function ImageGallery({ src, aspectRatio }) {
                   icon={<Link2Icon style={iconStyle} />}
                 />
                 <Button
-                  text="探索"
+                  text={"探索"}
                   width="2rem"
                   icon={<MagicSearchIcon style={iconStyle} />}
                 />
@@ -162,7 +174,14 @@ export default function ImageGallery({ src, aspectRatio }) {
             zIndex: 9999,
           }}
         >
-          <IconButton icon={<XIcon />} onClick={() => setIsFullscreen(false)} />
+          <IconButton
+            icon={<XIcon />}
+            onClick={() => {
+              setScale(1);
+              setIsFullscreen(false);
+            }}
+            style={{ opacity: 0.8 }}
+          />
           <button
             type="button"
             style={{
@@ -199,11 +218,13 @@ export default function ImageGallery({ src, aspectRatio }) {
             icon={<PlusIcon />}
             onClick={() => setScale(scale + 0.5)}
             disabled={scale >= 2}
+            style={{ opacity: 0.8 }}
           />
           <IconButton
             icon={<MinusIcon />}
             onClick={() => setScale(scale - 0.5)}
             disabled={scale <= 1}
+            style={{ opacity: 0.8 }}
           />
         </Flex>
       )}
@@ -229,7 +250,7 @@ export default function ImageGallery({ src, aspectRatio }) {
             icon={<FullscreenIcon style={iconStyle} />}
           />
           <Button
-            text="探索"
+            text={"探索"}
             width="2rem"
             icon={<MagicSearchIcon style={iconStyle} />}
           />

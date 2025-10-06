@@ -3,7 +3,7 @@ import axios from "axios";
 export default async function handler(req, res) {
   try {
     const result = await axios.get(
-      "https://api.lolicon.app/setu/v2",
+      "https://api.nekosapi.com/v4/images/random?limit=1",
       {
         timeout: 10000,
       }

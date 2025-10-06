@@ -38,7 +38,7 @@ export default function Sidebar() {
       linearIcon: <PlusLinear style={iconStyle} />,
       filledIcon: <PlusFilled style={iconStyle} />,
       pannelContent: <PlusPanel />,
-      translatePercent: isMobile ? "55%" : "5%",
+      translatePercent: isMobile ? "55%" : "35%",
     },
     {
       title: "更新",

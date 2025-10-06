@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import IconButton from "../ui/IconButton";
 import {
   HeartIcon,
@@ -15,6 +15,7 @@ import { useDeviceType } from "@/hooks/useDeviceType";
 import DropDown from "../ui/Dropdown";
 import ImageDetailOptions from "@/contents/ImageDetailOptions";
 import Share from "@/contents/Share";
+import { InView } from "react-intersection-observer";
 
 export default function ImageDetailDisplay({
   imgUrl,
@@ -24,12 +25,15 @@ export default function ImageDetailDisplay({
   author,
   date,
   tags,
-  rate,
+  isLoaded,
 }) {
   const [like, setLike] = useState(false);
-  const [likeCount, setLikeCount] = useState(1144);
-  const aspectRadio = width && height ? width / height : 1;
+  const [likeCount, setLikeCount] = useState(Math.floor(Math.random() * 100));
+  const [counter, setCounter] = useState(0);
   const isMobile = useDeviceType();
+  useEffect(() => {
+    setLikeCount(Math.floor(Math.random() * 100));
+  }, [imgUrl]);
   return (
     <div>
       <div
@@ -113,13 +117,20 @@ export default function ImageDetailDisplay({
             paddingInline: isMobile ? "0.5rem" : "4rem",
           }}
         >
-          <ImageGallery aspectRadio={aspectRadio} src={imgUrl} />
-          <Flex direction="row" disabledCenter={true} justify="between">
-            <div>
-              <h2>{title}</h2>
-              <h3 style={{ opacity: 0.75 }}>{author}</h3>
-            </div>
-            <p style={{ opacity: 0.75 }}>
+          <ImageGallery
+            width={width}
+            height={height}
+            src={imgUrl}
+            isLoaded={isLoaded}
+            title={title}
+          />
+          <Flex
+            direction={isMobile ? "column" : "row"}
+            disabledCenter={true}
+            gap={4}
+            justify="between"
+          >
+            <p style={{ opacity: 0.75, width: isMobile ? "100%" : "50%" }}>
               上传于 {moment(date).format("YYYY 年 MM 月 DD 日")}
             </p>
           </Flex>
@@ -140,7 +151,7 @@ export default function ImageDetailDisplay({
               </span>
             ))}
           </p>
-          
+
           <div style={{ marginTop: "3rem" }}>
             <h3>尚无评论</h3>
           </div>
@@ -150,9 +161,16 @@ export default function ImageDetailDisplay({
         className="main-waterfall-container"
         style={{ marginTop: "2rem", width: "100%" }}
       >
-        {Array.from({ length: 16 }).map((item, index) => (
+        {Array.from({ length: 16 + 8 * counter }).map((item, index) => (
           <Image key={index} index={index + 1} />
         ))}
+        <InView
+          onChange={() => {
+            setCounter((prev) => prev + 1);
+          }}
+        >
+          {({ ref }) => <div ref={ref} />}
+        </InView>
       </div>
     </div>
   );

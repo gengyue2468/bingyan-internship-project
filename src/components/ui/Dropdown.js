@@ -6,6 +6,7 @@ export default function DropDown({
   children,
   direction = "down",
   center,
+  centerPrecent = "50%",
   ...props
 }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -54,7 +55,7 @@ export default function DropDown({
           opacity: isOpen ? 1 : 0,
           transitionProperty: "all",
           transitionDuration: "300ms",
-          transform: center && "translateX(50%)",
+          transform: center && `translateX(${centerPrecent})`,
           background: "var(--background)",
           border: "1px solid",
           borderColor: "var(--border)",

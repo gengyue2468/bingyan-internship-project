@@ -1,39 +1,58 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { LazyLoadImage } from "react-lazy-load-image-component";
 import Flex from "../layouts/Flex";
 import { DotsIcon, LinkIcon, UploadIcon } from "./Icons";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import DropDown from "./Dropdown";
 import ImageOptions from "@/contents/ImageOptions";
+import Share from "@/contents/Share";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import { useInView } from "react-intersection-observer";
 
 export default function Image({ index, ...props }) {
   const [imageData, setImageData] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [isHover, setIsHover] = useState(false);
   const [isError, setIsError] = useState(false);
+  const [hasFetched, setHasFetched] = useState(false);
 
   const router = useRouter();
+
+  const { ref, inView } = useInView({
+    threshold: 0.25,
+  });
 
   useEffect(() => {
     async function getImage() {
       const { data } = await axios.get("/api/getImage");
 
       if (data) {
-        setImageData(data.data[0]);
+        setImageData(data[0]);
       } else {
         console.error("获取图片失败!");
         setIsError(true);
       }
     }
-    getImage();
-  }, []);
+    if (inView && !hasFetched) {
+      try {
+        getImage();
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setHasFetched(true);
+      }
+    } else {
+      return;
+    }
+  }, [inView]);
 
-  const aspectRatio = imageData ? imageData.width / imageData.height : 1;
+  const aspectRatio = isLoaded ? "auto" : Math.random() * 0.45 + 0.75;
   const display = isHover && isLoaded && !isError;
+  const dominatColor = `rgb(${imageData?.color_dominant[0]},${imageData?.color_dominant[1]},${imageData?.color_dominant[2]})`;
   return (
     <div
+      ref={ref}
       onMouseEnter={() => setIsHover(true)}
       onMouseLeave={() => setIsHover(false)}
       style={{
@@ -54,7 +73,9 @@ export default function Image({ index, ...props }) {
         <div
           style={{
             position: "absolute",
-            backgroundColor: "var(--accent)",
+            backgroundColor: imageData?.color_dominant
+              ? dominatColor
+              : "var(--accent)",
             width: "100%",
             height: "100%",
             borderRadius: "1rem",
@@ -64,7 +85,7 @@ export default function Image({ index, ...props }) {
 
       <Link
         href={{
-          pathname: `/pin/${imageData?.pid}`,
+          pathname: `/pin/${imageData?.id}`,
           query: { imageData: JSON.stringify(imageData) },
         }}
         style={{
@@ -75,8 +96,9 @@ export default function Image({ index, ...props }) {
           height: "100%",
         }}
       >
-        <img
-          src={imageData?.urls.original}
+        <LazyLoadImage
+          effect="blur"
+          src={imageData?.url}
           alt={imageData?.title}
           style={{
             borderRadius: "1rem",
@@ -165,9 +187,16 @@ export default function Image({ index, ...props }) {
         </button>
 
         <Flex direction="row" gap={1}>
-          <button className="iconButton normalButton">
+          <DropDown
+            style={{ zIndex: 25 }}
+            menu={<Share />}
+            direction="up"
+            className="iconButton normalButton"
+            center={true}
+            centerPrecent="30%"
+          >
             <UploadIcon style={{ width: "1.75rem", height: "1.75rem" }} />
-          </button>
+          </DropDown>
           <div style={{ position: "relative" }}>
             <DropDown
               menu={<ImageOptions />}
