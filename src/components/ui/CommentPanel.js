@@ -3,20 +3,34 @@ import Flex from "../layouts/Flex";
 import Avatar from "./Avatar";
 import { useDeviceType } from "@/hooks/useDeviceType";
 import { useState } from "react";
+import axios from "axios";
 
-export default function CommentPanel() {
+export default function CommentPanel({ pid }) {
   const { data: session } = useSession();
   const isMobile = useDeviceType();
   const [comment, setComment] = useState("");
+  const [isSending, setIsSending] = useState(false);
+
+  const handleSubmit = async (pid, comment) => {
+    try {
+      setIsSending(true);
+      await axios.post(`/api/comments`, { pid, comment });
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setComment("");
+      setIsSending(false);
+    }
+  };
   return (
     <Flex
       direction="row"
       style={{
-        marginTop: "4rem",
         padding: "0.5rem",
         border: "1px solid var(--border)",
         borderRadius: "4rem",
         flexWrap: "nowrap",
+        width: "100%",
       }}
       gap={2}
     >
@@ -26,20 +40,26 @@ export default function CommentPanel() {
         </small>
       )}
       {session && (
-        <>
+        <Flex
+          direction="row"
+          justify="between"
+          gap={2}
+          style={{ width: "100%" }}
+        >
           {!isMobile && <Avatar src={session.user.image} size={2.5} />}
           <input
             value={comment}
-            onChange={(e) => setComment(e.value)}
+            onChange={(e) => setComment(e.target.value)}
             type="text"
             className="input"
-            style={{ borderRadius: "4rem", flex: 1 }}
-            placeholder="添加评论以展开对话讨论"
+            style={{ borderRadius: "4rem", width: "100%" }}
+            placeholder="添加评论"
           />
           <button
             type="button"
             className="normalButton"
             disabled={comment == ""}
+            onClick={() => handleSubmit(pid, comment)}
             style={{
               borderRadius: "4rem",
               paddingInline: "1.2rem",
@@ -50,9 +70,9 @@ export default function CommentPanel() {
               opacity: comment === "" ? 0.2 : 1,
             }}
           >
-            发送
+            {isSending ? "发送中..." : "发送"}
           </button>
-        </>
+        </Flex>
       )}
     </Flex>
   );

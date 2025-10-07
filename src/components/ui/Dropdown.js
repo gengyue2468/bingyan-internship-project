@@ -7,6 +7,7 @@ export default function DropDown({
   direction = "down",
   center,
   centerPrecent = "50%",
+  customTop,
   ...props
 }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -29,7 +30,7 @@ export default function DropDown({
   switch (direction) {
     case "down":
       directionStyle = {
-        top: "4rem",
+        top: customTop ? customTop : "4rem",
         right: "0.5rem",
         translate: `0 ${isOpen ? 0 : "-2rem"}`,
       };

@@ -109,6 +109,7 @@ export default function ImageDetail() {
                 isLoaded={!isLoading}
                 column={mainContainerCount}
                 color={imageData?.color_dominant}
+                pid={imageData?.id}
               />
             </div>
             <Flex
@@ -127,7 +128,7 @@ export default function ImageDetail() {
                     key={index}
                     style={{ width: `calc(100% / ${subContainerCount})` }}
                   >
-                    {Array.from({ length: 18 + 9 * counter }).map(
+                    {Array.from({ length: 9 + 4 * counter }).map(
                       (item, index) => (
                         <Image key={index} index={index + 1} />
                       )

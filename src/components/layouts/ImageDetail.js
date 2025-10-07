@@ -9,7 +9,6 @@ import {
 } from "../ui/Icons";
 import Flex from "./Flex";
 import ImageGallery from "../ui/ImageGallery";
-import moment from "moment";
 import Image from "../ui/Image";
 import { useDeviceType } from "@/hooks/useDeviceType";
 import DropDown from "../ui/Dropdown";
@@ -18,6 +17,8 @@ import Share from "@/contents/Share";
 import { InView } from "react-intersection-observer";
 import { useScreenSize } from "@/hooks/useScreenSize";
 import CommentPanel from "../ui/CommentPanel";
+import Accordion from "../ui/Accordion";
+import CommentList from "@/contents/CommentList";
 
 export default function ImageDetailDisplay({
   imgUrl,
@@ -29,6 +30,7 @@ export default function ImageDetailDisplay({
   tags,
   isLoaded,
   column,
+  pid,
 }) {
   const [like, setLike] = useState(false);
   const [likeCount, setLikeCount] = useState(Math.floor(Math.random() * 100));
@@ -147,28 +149,42 @@ export default function ImageDetailDisplay({
             color={color}
             key={imgUrl}
           />
-          <p>
-            {tags?.map((item, index) => (
-              <span
-                key={index}
-                style={{
-                  marginRight: "0.25rem",
-                  background: "var(--accent)",
-                  padding: "0.5rem",
-                  marginTop: "0.25rem",
-                  borderRadius: "0.5rem",
-                  display: "inline-block",
-                }}
-              >
-                {item}
-              </span>
-            ))}
-          </p>
 
-          <div style={{ marginTop: "4rem" }}>
-            <h3>尚无评论</h3>
-            <CommentPanel />
-          </div>
+          <Accordion
+            title={`标签 (${tags ? tags.length : 0})`}
+            content={
+              <Flex direction="row">
+                {tags?.map((item, index) => (
+                  <span
+                    key={index}
+                    style={{
+                      marginRight: "0.25rem",
+                      background: "var(--accent)",
+                      padding: "0.5rem",
+                      marginTop: "0.25rem",
+                      borderRadius: "0.5rem",
+                      display: "inline-block",
+                    }}
+                  >
+                    {item}
+                  </span>
+                ))}
+              </Flex>
+            }
+            height="3rem"
+            style={{
+              flexWrap: "nowrap",
+              maxWidth: "100%",
+              overflowX: "auto",
+            }}
+          />
+
+          <Accordion
+            title="评论"
+            content={<CommentList pid={pid} />}
+            height="20rem"
+          />
+          <CommentPanel pid={pid} />
         </Flex>
       </div>
       <Flex direction="row" gap={4} disabledCenter>
@@ -180,7 +196,7 @@ export default function ImageDetailDisplay({
               key={index}
               style={{ width: `calc(100% / ${column})` }}
             >
-              {Array.from({ length: 16 + 8 * counter }).map((item, index) => (
+              {Array.from({ length: 8 + 6 * counter }).map((item, index) => (
                 <Image key={index} index={index + 1} />
               ))}
               <InView
