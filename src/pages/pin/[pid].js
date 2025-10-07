@@ -103,9 +103,6 @@ export default function ImageDetail() {
                 author={imageData?.author}
                 tags={imageData?.tags}
                 date={imageData?.date}
-                rate={imageData?.r18}
-                width={imageData?.width}
-                height={imageData?.height}
                 isLoaded={!isLoading}
                 column={mainContainerCount}
                 color={imageData?.color_dominant}

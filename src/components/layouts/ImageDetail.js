@@ -19,6 +19,7 @@ import { useScreenSize } from "@/hooks/useScreenSize";
 import CommentPanel from "../ui/CommentPanel";
 import Accordion from "../ui/Accordion";
 import CommentList from "@/contents/CommentList";
+import axios from "axios";
 
 export default function ImageDetailDisplay({
   imgUrl,
@@ -35,10 +36,15 @@ export default function ImageDetailDisplay({
   const [like, setLike] = useState(false);
   const [likeCount, setLikeCount] = useState(Math.floor(Math.random() * 100));
   const [counter, setCounter] = useState(0);
+  const [sendComment, setSendComment] = useState(false);
+  const [refresh, setRefresh] = useState(false);
+  const [commentsCount,setCommentsCount] = useState(0);
   const [px, setPx] = useState("0.5rem");
+
   const isMobile = useDeviceType();
   useEffect(() => {
     setLikeCount(Math.floor(Math.random() * 100));
+    setRefresh(!refresh);
   }, [imgUrl]);
 
   const deviceType = useScreenSize();
@@ -56,6 +62,20 @@ export default function ImageDetailDisplay({
     }
   }, [deviceType]);
 
+  useEffect(() => {
+    const fetchComments = async () => {
+      if (!pid) return;
+      try {
+        const res = await axios.get(`/api/comments?pid=${pid}`);
+
+        setCommentsCount(res.data.length);
+      } catch (err) {
+        console.error("获取评论失败：", err);
+        setCommentsCount(0);
+      }
+    };
+    fetchComments();
+  }, [pid, sendComment]);
   return (
     <div>
       <div
@@ -180,11 +200,20 @@ export default function ImageDetailDisplay({
           />
 
           <Accordion
-            title="评论"
-            content={<CommentList pid={pid} />}
+            title={`评论 (${commentsCount})`}
+            content={
+              <CommentList
+                pid={pid}
+                sendComment={sendComment}
+                refresh={refresh}
+              />
+            }
             height="20rem"
           />
-          <CommentPanel pid={pid} />
+          <CommentPanel
+            pid={pid}
+            sendComment={() => setSendComment(!sendComment)}
+          />
         </Flex>
       </div>
       <Flex direction="row" gap={4} disabledCenter>

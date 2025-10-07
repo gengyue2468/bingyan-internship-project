@@ -2,14 +2,17 @@ import Avatar from "./Avatar";
 import Flex from "../layouts/Flex";
 import { DotsIcon, HeartIcon } from "./Icons";
 import DropDown from "./Dropdown";
+import moment from "moment";
 
 export default function CommentCard({
   username,
   nickname,
   avatar,
   content,
+  date,
   ...props
 }) {
+  moment.locale("zh-cn");
   return (
     <Flex
       {...props}
@@ -18,8 +21,10 @@ export default function CommentCard({
       disabledCenter
       style={{
         width: "100%",
-        borderBottom: "1px solid var(--border)",
+        border: "1px solid var(--border)",
+        borderRadius: "1rem",
         paddingBlock: "1rem",
+        padding: "1rem"
       }}
     >
       <Flex direction="row" gap={4}>
@@ -32,7 +37,7 @@ export default function CommentCard({
       <div>
         <main>{content}</main>
         <Flex direction="row" gap={2} style={{ marginTop: "0.5rem" }}>
-          <h5>4 周前</h5>
+          <h5>{moment(date).fromNow()}</h5>
           <h5>回复</h5>
           <button
             className="normalButton iconButton ghostButton"

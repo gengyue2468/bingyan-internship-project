@@ -5,7 +5,7 @@ import { useDeviceType } from "@/hooks/useDeviceType";
 import { useState } from "react";
 import axios from "axios";
 
-export default function CommentPanel({ pid }) {
+export default function CommentPanel({ pid, sendComment }) {
   const { data: session } = useSession();
   const isMobile = useDeviceType();
   const [comment, setComment] = useState("");
@@ -20,6 +20,7 @@ export default function CommentPanel({ pid }) {
     } finally {
       setComment("");
       setIsSending(false);
+      sendComment();
     }
   };
   return (
