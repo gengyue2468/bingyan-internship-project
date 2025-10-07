@@ -16,24 +16,44 @@ import DropDown from "../ui/Dropdown";
 import ImageDetailOptions from "@/contents/ImageDetailOptions";
 import Share from "@/contents/Share";
 import { InView } from "react-intersection-observer";
+import { useScreenSize } from "@/hooks/useScreenSize";
+import CommentPanel from "../ui/CommentPanel";
 
 export default function ImageDetailDisplay({
   imgUrl,
   width,
   height,
   title,
-  author,
+  color,
   date,
   tags,
   isLoaded,
+  column,
 }) {
   const [like, setLike] = useState(false);
   const [likeCount, setLikeCount] = useState(Math.floor(Math.random() * 100));
   const [counter, setCounter] = useState(0);
+  const [px, setPx] = useState("0.5rem");
   const isMobile = useDeviceType();
   useEffect(() => {
     setLikeCount(Math.floor(Math.random() * 100));
   }, [imgUrl]);
+
+  const deviceType = useScreenSize();
+  useEffect(() => {
+    switch (deviceType) {
+      case 1 || 2:
+        setPx("0.5rem");
+        break;
+      case 3 || 4:
+        setPx("1rem");
+        break;
+      case 5 || 6:
+        setPx("4rem");
+        break;
+    }
+  }, [deviceType]);
+
   return (
     <div>
       <div
@@ -43,16 +63,17 @@ export default function ImageDetailDisplay({
           background: "var(--background)",
           paddingInline: isMobile ? "0.5rem" : "1rem",
           paddingBlock: "1rem",
+          marginBottom: "1rem",
           width: "100%",
         }}
       >
         <Flex
           direction="row"
-          gap={isMobile ? 1 : 4}
+          gap={px !== "4rem" ? 1 : 4}
           justify="between"
           style={{ width: "100%" }}
         >
-          <Flex direction="row" gap={isMobile ? 1 : 4}>
+          <Flex direction="row" gap={px !== "4rem" ? 1 : 4}>
             <Flex direction="row" gap={1}>
               <IconButton
                 icon={
@@ -114,7 +135,7 @@ export default function ImageDetailDisplay({
           style={{
             marginTop: "1rem",
             marginBottom: "4rem",
-            paddingInline: isMobile ? "0.5rem" : "4rem",
+            paddingInline: px,
           }}
         >
           <ImageGallery
@@ -123,17 +144,9 @@ export default function ImageDetailDisplay({
             src={imgUrl}
             isLoaded={isLoaded}
             title={title}
+            color={color}
+            key={imgUrl}
           />
-          <Flex
-            direction={isMobile ? "column" : "row"}
-            disabledCenter={true}
-            gap={4}
-            justify="between"
-          >
-            <p style={{ opacity: 0.75, width: isMobile ? "100%" : "50%" }}>
-              上传于 {moment(date).format("YYYY 年 MM 月 DD 日")}
-            </p>
-          </Flex>
           <p>
             {tags?.map((item, index) => (
               <span
@@ -152,26 +165,35 @@ export default function ImageDetailDisplay({
             ))}
           </p>
 
-          <div style={{ marginTop: "3rem" }}>
+          <div style={{ marginTop: "4rem" }}>
             <h3>尚无评论</h3>
+            <CommentPanel />
           </div>
         </Flex>
       </div>
-      <div
-        className="main-waterfall-container"
-        style={{ marginTop: "2rem", width: "100%" }}
-      >
-        {Array.from({ length: 16 + 8 * counter }).map((item, index) => (
-          <Image key={index} index={index + 1} />
-        ))}
-        <InView
-          onChange={() => {
-            setCounter((prev) => prev + 1);
-          }}
-        >
-          {({ ref }) => <div ref={ref} />}
-        </InView>
-      </div>
+      <Flex direction="row" gap={4} disabledCenter>
+        {Array.from({ length: column }).map((item, index) => {
+          return (
+            <Flex
+              direction="column"
+              gap={4}
+              key={index}
+              style={{ width: `calc(100% / ${column})` }}
+            >
+              {Array.from({ length: 16 + 8 * counter }).map((item, index) => (
+                <Image key={index} index={index + 1} />
+              ))}
+              <InView
+                onChange={() => {
+                  setCounter((prev) => prev + 1);
+                }}
+              >
+                {({ ref }) => <div ref={ref} />}
+              </InView>
+            </Flex>
+          );
+        })}
+      </Flex>
     </div>
   );
 }

@@ -50,9 +50,10 @@ function Button({ text, icon, width, ...props }) {
   );
 }
 
-export default function ImageGallery({ src, isLoaded, title, width, height }) {
+export default function ImageGallery({ src, color, title }) {
   const [isHover, setIsHover] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
   const [scale, setScale] = useState(1);
   const iconStyle = { height: "1.5rem", width: "1.5rem" };
   const imgStyle = {
@@ -76,12 +77,20 @@ export default function ImageGallery({ src, isLoaded, title, width, height }) {
     scale: isFullscreen ? 1.01 : 1,
   };
   const isMobile = useDeviceType();
+  const aspectRatio = isLoaded ? "auto" : Math.random() * 0.45 + 0.75;
+  const dominatColor = color && `rgb(${color[0]},${color[1]},${color[2]})`;
   return (
     <div
       style={{
         position: !isFullscreen && "relative",
-        background: "var(--accent)",
+        background: dominatColor ? dominatColor : "var(--accent)",
         borderRadius: "1rem",
+        width: isLoaded ? "fit-content" : "100%",
+        display: "flex",
+        justifyContent: "center",
+        aspectRatio: aspectRatio,
+        transitionProperty: "all",
+        transitionDuration: "500ms",
       }}
       onMouseEnter={() => setIsHover(true)}
       onMouseLeave={() => setIsHover(false)}
@@ -91,7 +100,8 @@ export default function ImageGallery({ src, isLoaded, title, width, height }) {
         effect="blur"
         alt={title}
         src={src}
-        style={{ ...imgStyle }}
+        style={imgStyle}
+        onLoad={() => setIsLoaded(true)}
       />
       <div style={absoluteImgStyle}>
         <div
@@ -99,17 +109,21 @@ export default function ImageGallery({ src, isLoaded, title, width, height }) {
             position: "relative",
             transitionProperty: "all",
             transitionDuration: "500ms",
+            display: "flex",
+            alignItems: "center",
           }}
         >
           <LazyLoadImage
             alt={title}
             src={src}
             style={{
-              borderRadius: "1rem",
-              height: "100%",
+              borderRadius: isMobile && isFullscreen ? 0 : "1rem",
               scale: 1 * scale,
+              width: isMobile ? "100%" : "auto",
+              height: isMobile ? "auto" : "100%",
               transitionProperty: "all",
               transitionDuration: "500ms",
+              opacity: isFullscreen ? 1 : 0,
             }}
           />
           {isFullscreen && (
@@ -117,7 +131,7 @@ export default function ImageGallery({ src, isLoaded, title, width, height }) {
               style={{
                 position: "absolute",
                 bottom: "1rem",
-                left: isMobile ? "4rem" : "auto",
+                left: isMobile ? "1rem" : "auto",
                 right: isMobile ? "auto" : "1rem",
                 zIndex: 2,
               }}
@@ -149,7 +163,7 @@ export default function ImageGallery({ src, isLoaded, title, width, height }) {
           style={{
             zIndex: 999,
             background: "#000000",
-            opacity: 0.8,
+            opacity: isMobile ? 1 : 0.8,
             backdropFilter: "blur(15px)",
             position: "fixed",
             top: 0,

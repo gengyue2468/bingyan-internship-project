@@ -1,11 +1,15 @@
 import Flex from "@/components/layouts/Flex";
+import Dialog from "@/components/ui/Dialog";
+import { OfflineIcon } from "@/components/ui/Icons";
+import { signIn, signOut, useSession } from "next-auth/react";
+import { useState } from "react";
 
 function UserPanel({ name, avatar, email, type, ...props }) {
   return (
     <button
       type="button"
       {...props}
-      style={{ width: "100%" }}
+      style={{ width: "fit-content", whiteSpace: "nowrap" }}
       className="ghostButton"
     >
       <Flex direction="row" gap={4}>
@@ -61,27 +65,70 @@ function PanelButton({ link, title, ...props }) {
 }
 
 export default function UserMenuContent() {
+  const { data: session, status } = useSession();
+  const [openLogin, setOpenLogin] = useState(false);
   return (
     <>
-      <small style={{ marginTop: "1.25rem", textAlign: "left", opacity: 0.5 }}>
-        目前登录账户
-      </small>
+      {session && (
+        <small
+          style={{ marginTop: "1.25rem", textAlign: "left", opacity: 0.5 }}
+        >
+          目前登录账户
+        </small>
+      )}
 
-      <UserPanel
-        avatar="/static/logo.webp"
-        name="Brian Griffin"
-        type="个人"
-        email="gengyue2468@outlook.com"
-      />
-
-      <PanelButton title="转换为企业账户" />
-
-      <small style={{ marginBlock: "0.5rem", textAlign: "left", opacity: 0.5 }}>
-        你的账户
-      </small>
-
-      <PanelButton title="添加 Pinterest 账户" />
-      <PanelButton title="退出登录" />
+      {session ? (
+        <UserPanel
+          avatar={session.user.image}
+          name={session.user.name}
+          type="个人"
+          email={session.user.email}
+        />
+      ) : (
+        <Flex direction="column" gap={4} style={{ width: "16rem" }}>
+          <OfflineIcon
+            style={{
+              width: "6rem",
+              height: "6rem",
+              color: "var(--bingo)",
+              marginBlock: "2rem",
+            }}
+          />
+          <small style={{ textAlign: "center", opacity: 0.8 }}>
+            与 Pinterest 在线服务的连接已经断开。为了让您马上看到数以亿万计的
+            Pin 图。现在开始，可能只需要一次登录
+          </small>
+        </Flex>
+      )}
+      {session && <PanelButton title="转换为企业账户" />}
+      {session && (
+        <>
+          <small
+            style={{ marginBlock: "0.5rem", textAlign: "left", opacity: 0.5 }}
+          >
+            你的账户
+          </small>
+          <PanelButton title="添加 Pinterest 账户" />{" "}
+          <PanelButton title="退出登录" onClick={() => signOut()} />
+        </>
+      )}
+      {!session && (
+        <button
+          onClick={() => signIn("github")}
+          type="button"
+          style={{
+            background: "var(--bingo)",
+            paddingInline: "1rem",
+            paddingBlock: "0.75rem",
+            borderRadius: "1rem",
+            color: "#ffffff",
+            width: "100%",
+            marginBlock: "1rem",
+          }}
+        >
+          现在登录
+        </button>
+      )}
     </>
   );
 }

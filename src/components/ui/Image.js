@@ -20,7 +20,7 @@ export default function Image({ index, ...props }) {
   const router = useRouter();
 
   const { ref, inView } = useInView({
-    threshold: 0.25,
+    threshold: 0.1,
   });
 
   useEffect(() => {
@@ -57,7 +57,6 @@ export default function Image({ index, ...props }) {
       onMouseLeave={() => setIsHover(false)}
       style={{
         position: "relative",
-        marginBottom: "1rem",
         zIndex: 0,
         breakInside: "avoid",
         width: "100%",
