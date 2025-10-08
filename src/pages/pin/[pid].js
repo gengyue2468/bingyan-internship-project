@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import { InView } from "react-intersection-observer";
 import { useScreenSize } from "@/hooks/useScreenSize";
 import axios from "axios";
+import { LoadingIcon } from "@/components/ui/Icons";
 
 export default function ImageDetail() {
   const router = useRouter();
@@ -20,6 +21,59 @@ export default function ImageDetail() {
   const [counter, setCounter] = useState(0);
   const [px, setPx] = useState("0.5rem");
   const screenType = useScreenSize();
+  const [isError, setIsError] = useState(false);
+  const [displayData, setDisplayData] = useState({});
+
+  async function addData(waterfallContainer) {
+    const { data } = await axios.get("/api/getImage", {
+      params: { limit: 8 },
+    });
+
+    if (!data || !waterfallContainer) {
+      console.error("获取图片为空或容器未初始化!");
+      setIsError(true);
+      return;
+    }
+
+    data.forEach((item, index) => {
+      const colIndex = (index % subContainerCount) + 1;
+
+      if (!waterfallContainer[colIndex]) {
+        waterfallContainer[colIndex] = [];
+      }
+
+      waterfallContainer[colIndex].push(item);
+    });
+
+    setDisplayData(waterfallContainer);
+  }
+
+  useEffect(() => {
+    if (isLoading || !subContainerCount || subContainerCount <= 0) return;
+
+    async function getImage() {
+      setIsLoading(true);
+      try {
+        const waterfallContainer = {};
+
+        for (let i = 0; i < subContainerCount; i++) {
+          waterfallContainer[i + 1] = [];
+        }
+        if (counter == 0) {
+          await addData(waterfallContainer);
+        } else {
+          await addData(displayData);
+        }
+      } catch (err) {
+        console.error("获取图片失败:", err);
+        setIsError(true);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+
+    getImage();
+  }, [subContainerCount, counter]);
 
   useEffect(() => {
     switch (screenType) {
@@ -108,9 +162,7 @@ export default function ImageDetail() {
               <ImageDetailDisplay
                 imgUrl={!isLoading && imageData?.url}
                 title={imageData?.title}
-                author={imageData?.author}
                 tags={imageData?.tags}
-                date={imageData?.date}
                 isLoaded={!isLoading}
                 column={mainContainerCount}
                 color={imageData?.color_dominant}
@@ -118,36 +170,58 @@ export default function ImageDetail() {
               />
             </div>
             <Flex
-              direction="row"
-              gap={4}
-              disabledCenter
+              direction="column"
+              gap={2}
               style={{
                 width: `calc((100% / ${totalColumn}) * ${subContainerCount})`,
               }}
             >
-              {Array.from({ length: subContainerCount }).map((item, index) => {
-                return (
+              <Flex direction="row" gap={4} disabledCenter>
+                {Array.from({ length: subContainerCount }).map((_, index) => (
                   <Flex
                     direction="column"
                     gap={4}
                     key={index}
-                    style={{ width: `calc(100% / ${subContainerCount})` }}
+                    style={{ width: `calc(100% / ${subContainerCount}) ` }}
                   >
-                    {Array.from({ length: 9 + 4 * counter }).map(
-                      (item, index) => (
-                        <Image key={index} index={index + 1} />
-                      )
+                    {displayData[index + 1]?.map((item, index) => (
+                      <Image
+                        index={index}
+                        key={item?.id}
+                        src={item?.url}
+                        alt={item?.title}
+                        color_dominant={item?.color_dominant}
+                        pid={item?.id}
+                      />
+                    ))}
+                    {index === subContainerCount - 1 && (
+                      <InView
+                        onChange={(inView) => {
+                          if (inView && !isLoading) {
+                            setCounter((prev) => prev + 1);
+                          }
+                        }}
+                      >
+                        {({ ref }) => <div ref={ref} />}
+                      </InView>
                     )}
-                    <InView
-                      onChange={() => {
-                        setCounter((prev) => prev + 1);
-                      }}
-                    >
-                      {({ ref }) => <div ref={ref} />}
-                    </InView>
                   </Flex>
-                );
-              })}
+                ))}
+              </Flex>
+              {isLoading && (
+                <Flex
+                  justify="center"
+                  style={{
+                    marginTop: "1rem",
+                    textAlign: "center",
+                    width: "100%",
+                  }}
+                  gap={2}
+                >
+                  <LoadingIcon style={{ width: "1rem", height: "1rem" }} />
+                  <p>请稍候...</p>
+                </Flex>
+              )}
             </Flex>
           </Flex>
         </Flex>

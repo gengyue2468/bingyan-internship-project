@@ -1,58 +1,27 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Flex from "../layouts/Flex";
 import { DotsIcon, LinkIcon, UploadIcon } from "./Icons";
-import { useRouter } from "next/router";
 import Link from "next/link";
 import DropDown from "./Dropdown";
 import ImageOptions from "@/contents/ImageOptions";
 import Share from "@/contents/Share";
 import { LazyLoadImage } from "react-lazy-load-image-component";
-import { useInView } from "react-intersection-observer";
 
-export default function Image({ index, ...props }) {
-  const [imageData, setImageData] = useState(null);
+export default function Image({
+  index,
+  src,
+  alt,
+  pid,
+  color_dominant,
+  ...props
+}) {
   const [isLoaded, setIsLoaded] = useState(false);
   const [isHover, setIsHover] = useState(false);
-  const [isError, setIsError] = useState(false);
-  const [hasFetched, setHasFetched] = useState(false);
-
-  const router = useRouter();
-
-  const { ref, inView } = useInView({
-    threshold: 0.1,
-  });
-
-  useEffect(() => {
-    async function getImage() {
-      const { data } = await axios.get("/api/getImage");
-
-      if (data) {
-        setImageData(data[0]);
-      } else {
-        console.error("获取图片失败!");
-        setIsError(true);
-      }
-    }
-    if (inView && !hasFetched) {
-      try {
-        getImage();
-      } catch (err) {
-        console.error(err);
-      } finally {
-        setHasFetched(true);
-      }
-    } else {
-      return;
-    }
-  }, [inView]);
-
   const aspectRatio = isLoaded ? "auto" : Math.random() * 0.45 + 0.75;
-  const display = isHover && isLoaded && !isError;
-  const dominatColor = `rgb(${imageData?.color_dominant[0]},${imageData?.color_dominant[1]},${imageData?.color_dominant[2]})`;
+  const display = isHover && isLoaded;
+  const dominatColor = `rgb(${color_dominant[0]},${color_dominant[1]},${color_dominant[2]})`;
   return (
     <div
-      ref={ref}
       onMouseEnter={() => setIsHover(true)}
       onMouseLeave={() => setIsHover(false)}
       style={{
@@ -72,9 +41,7 @@ export default function Image({ index, ...props }) {
         <div
           style={{
             position: "absolute",
-            backgroundColor: imageData?.color_dominant
-              ? dominatColor
-              : "var(--accent)",
+            backgroundColor: color_dominant ? dominatColor : "var(--accent)",
             width: "100%",
             height: "100%",
             borderRadius: "1rem",
@@ -84,11 +51,11 @@ export default function Image({ index, ...props }) {
 
       <Link
         href={{
-          pathname: `/pin/${imageData?.id}/`,
+          pathname: `/pin/${pid}/`,
         }}
         style={{
           position: "relative",
-          zIndex: imageData ? 7 : -1,
+          zIndex: src ? 7 : -1,
           display: "block",
           width: "100%",
           height: "100%",
@@ -96,8 +63,8 @@ export default function Image({ index, ...props }) {
       >
         <LazyLoadImage
           effect="blur"
-          src={imageData?.url}
-          alt={imageData?.title}
+          src={src}
+          alt={alt}
           style={{
             borderRadius: "1rem",
             width: "100%",

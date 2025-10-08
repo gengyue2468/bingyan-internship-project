@@ -1,9 +1,10 @@
 import axios from "axios";
 
 export default async function handler(req, res) {
+  const { limit } = req.query;
   try {
     const result = await axios.get(
-      "https://api.nekosapi.com/v4/images/random?limit=1&rating=safe",
+      `https://api.nekosapi.com/v4/images/random?limit=${limit}&rating=safe`,
       {
         timeout: 10000,
       }

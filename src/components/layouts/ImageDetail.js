@@ -20,6 +20,7 @@ import CommentPanel from "../ui/CommentPanel";
 import Accordion from "../ui/Accordion";
 import CommentList from "@/contents/CommentList";
 import axios from "axios";
+import { LoadingIcon } from "../ui/Icons";
 
 export default function ImageDetailDisplay({
   imgUrl,
@@ -40,8 +41,63 @@ export default function ImageDetailDisplay({
   const [refresh, setRefresh] = useState(false);
   const [commentsCount, setCommentsCount] = useState(0);
   const [px, setPx] = useState("0.5rem");
+  const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
+  const [displayData, setDisplayData] = useState({});
+
+  async function addData(waterfallContainer) {
+    const { data } = await axios.get("/api/getImage", {
+      params: { limit: 6 },
+    });
+
+    if (!data || !waterfallContainer) {
+      console.error("获取图片为空或容器未初始化!");
+      setIsError(true);
+      return;
+    }
+
+    data.forEach((item, index) => {
+      const colIndex = (index % column) + 1;
+
+      if (!waterfallContainer[colIndex]) {
+        waterfallContainer[colIndex] = [];
+      }
+
+      waterfallContainer[colIndex].push(item);
+    });
+
+    setDisplayData(waterfallContainer);
+  }
+
+  useEffect(() => {
+    if (isLoading || !column || column <= 0) return;
+
+    async function getImage() {
+      setIsLoading(true);
+      try {
+        const waterfallContainer = {};
+
+        for (let i = 0; i < column; i++) {
+          waterfallContainer[i + 1] = [];
+        }
+        if (counter == 0) {
+          await addData(waterfallContainer);
+        } else {
+          await addData(displayData);
+        }
+      } catch (err) {
+        console.error("获取图片失败:", err);
+        setIsError(true);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+
+    getImage();
+  }, [column, counter]);
 
   const isMobile = useDeviceType();
+
   useEffect(() => {
     setLikeCount(Math.floor(Math.random() * 100));
     setRefresh(!refresh);
@@ -161,8 +217,6 @@ export default function ImageDetailDisplay({
           }}
         >
           <ImageGallery
-            width={width}
-            height={height}
             src={imgUrl}
             isLoaded={isLoaded}
             title={title}
@@ -217,28 +271,49 @@ export default function ImageDetailDisplay({
           />
         </Flex>
       </div>
-      <Flex direction="row" gap={4} disabledCenter>
-        {Array.from({ length: column }).map((item, index) => {
-          return (
+      <Flex direction="column" gap={2}>
+        <Flex direction="row" gap={4} disabledCenter>
+          {Array.from({ length: column }).map((item, index) => (
             <Flex
               direction="column"
               gap={4}
               key={index}
-              style={{ width: `calc(100% / ${column})` }}
+              style={{ width: `calc(100% / ${column}) ` }}
             >
-              {Array.from({ length: 8 + 6 * counter }).map((item, index) => (
-                <Image key={index} index={index + 1} />
+              {displayData[index + 1]?.map((item, index) => (
+                <Image
+                  index={index}
+                  key={item?.id}
+                  src={item?.url}
+                  alt={item?.title}
+                  color_dominant={item?.color_dominant}
+                  pid={item?.id}
+                />
               ))}
-              <InView
-                onChange={() => {
-                  setCounter((prev) => prev + 1);
-                }}
-              >
-                {({ ref }) => <div ref={ref} />}
-              </InView>
+              {index === column - 1 && (
+                <InView
+                  onChange={(inView) => {
+                    if (inView && !isLoading) {
+                      setCounter((prev) => prev + 1);
+                    }
+                  }}
+                >
+                  {({ ref }) => <div ref={ref} />}
+                </InView>
+              )}
             </Flex>
-          );
-        })}
+          ))}
+        </Flex>
+        {isLoading && (
+          <Flex
+            justify="center"
+            style={{ marginTop: "1rem", textAlign: "center", width: "100%" }}
+            gap={2}
+          >
+            <LoadingIcon style={{ width: "1rem", height: "1rem" }} />
+            <p>请稍候...</p>
+          </Flex>
+        )}
       </Flex>
     </div>
   );

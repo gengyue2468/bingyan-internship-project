@@ -17,13 +17,6 @@ export async function getOrCreateIssue(pid) {
       }
     );
 
-    console.log("[getOrCreateIssue] 搜索结果：", {
-      pid: encodedPid,
-      searchQuery,
-      totalIssueCount: searchRes.data.total_count,
-      foundIssueNumber: searchRes.data.items[0]?.number,
-    });
-
     if (searchRes.data.total_count > 0) {
       return searchRes.data.items[0].number;
     }
@@ -38,8 +31,6 @@ export async function getOrCreateIssue(pid) {
         },
       }
     );
-
-    console.log("[getOrCreateIssue] 新建 Issue 编号：", createRes.data.number);
     return createRes.data.number;
   } catch (error) {
     console.error("[getOrCreateIssue] 错误详情：", {
