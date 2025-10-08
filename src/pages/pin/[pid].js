@@ -194,17 +194,16 @@ export default function ImageDetail() {
                         pid={item?.id}
                       />
                     ))}
-                    {index === subContainerCount - 1 && (
-                      <InView
-                        onChange={(inView) => {
-                          if (inView && !isLoading) {
-                            setCounter((prev) => prev + 1);
-                          }
-                        }}
-                      >
-                        {({ ref }) => <div ref={ref} />}
-                      </InView>
-                    )}
+
+                    <InView
+                      onChange={(inView) => {
+                        if (inView && !isLoading) {
+                          setCounter((prev) => prev + 1);
+                        }
+                      }}
+                    >
+                      {({ ref }) => <div ref={ref} />}
+                    </InView>
                   </Flex>
                 ))}
               </Flex>

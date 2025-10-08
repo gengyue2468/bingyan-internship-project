@@ -290,17 +290,16 @@ export default function ImageDetailDisplay({
                   pid={item?.id}
                 />
               ))}
-              {index === column - 1 && (
-                <InView
-                  onChange={(inView) => {
-                    if (inView && !isLoading) {
-                      setCounter((prev) => prev + 1);
-                    }
-                  }}
-                >
-                  {({ ref }) => <div ref={ref} />}
-                </InView>
-              )}
+
+              <InView
+                onChange={(inView) => {
+                  if (inView && !isLoading) {
+                    setCounter((prev) => prev + 1);
+                  }
+                }}
+              >
+                {({ ref }) => <div ref={ref} />}
+              </InView>
             </Flex>
           ))}
         </Flex>
