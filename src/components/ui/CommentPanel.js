@@ -31,7 +31,8 @@ export default function CommentPanel({ pid, sendComment }) {
         border: "1px solid var(--border)",
         borderRadius: "4rem",
         flexWrap: "nowrap",
-        width: "100%",
+        translate: '-1rem 0',
+        width: "calc(100% + 2rem)",
       }}
       gap={2}
     >
@@ -48,14 +49,23 @@ export default function CommentPanel({ pid, sendComment }) {
           style={{ width: "100%" }}
         >
           {!isMobile && <Avatar src={session.user.image} size={2.5} />}
-          <input
-            value={comment}
-            onChange={(e) => setComment(e.target.value)}
-            type="text"
-            className="input"
-            style={{ borderRadius: "4rem", width: "100%" }}
-            placeholder="添加评论"
-          />
+          <form
+            style={{ width: "100%" }}
+            onSubmit={(e) => {
+              handleSubmit(pid, comment);
+              e.preventDefault();
+            }}
+          >
+            <input
+              value={comment}
+              onChange={(e) => setComment(e.target.value)}
+              type="text"
+              className="input"
+              style={{ borderRadius: "4rem", width: "100%" }}
+              placeholder="添加评论"
+            />
+          </form>
+
           <button
             type="button"
             className="normalButton"

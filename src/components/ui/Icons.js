@@ -83,9 +83,9 @@ const ChatLinear = ({ ...props }) => (
   <svg xmlns="http://www.w3.org/2000/svg" {...props} viewBox="0 0 14 14">
     <path
       fill="currentColor"
-      fill-rule="evenodd"
+      fillRule="evenodd"
       d="M1.249 7a5.751 5.751 0 1 1 3.282 5.196a.62.62 0 0 0-.438-.083l-.005.001l-2.491.45l.68-1.81l.001-.003a.63.63 0 0 0-.096-.609A5.7 5.7 0 0 1 1.25 7M7 14a7 7 0 0 1-2.886-.62l-3.379.61a.625.625 0 0 1-.696-.834l.959-2.55A7.001 7.001 0 1 1 7 14.001M4.252 8a1 1 0 1 1 0-2a1 1 0 0 1 0 2m3.75-1a1 1 0 1 0-2 0a1 1 0 0 0 2 0m1.75 1a1 1 0 1 1 0-2a1 1 0 0 1 0 2"
-      clip-rule="evenodd"
+      clipRule="evenodd"
     />
   </svg>
 );
@@ -94,9 +94,9 @@ const ChatFilled = ({ ...props }) => (
   <svg xmlns="http://www.w3.org/2000/svg" {...props} viewBox="0 0 14 14">
     <path
       fill="currentColor"
-      fill-rule="evenodd"
+      fillRule="evenodd"
       d="M6.998.046A6.954 6.954 0 1 1 4.099 13.32l-3.466.627a.5.5 0 0 1-.556-.668l.994-2.646A6.954 6.954 0 0 1 6.998.046M5 7a1 1 0 1 1-2 0a1 1 0 0 1 2 0m2 1a1 1 0 1 0 0-2a1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2a1 1 0 0 0 0 2"
-      clip-rule="evenodd"
+      clipRule="evenodd"
     />
   </svg>
 );
@@ -106,9 +106,9 @@ const SettingsLinear = ({ ...props }) => (
     <g
       fill="none"
       stroke="currentColor"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      stroke-width="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="2"
     >
       <circle cx="12" cy="12" r="3" />
       <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83a2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33a1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2a2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0a2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2a2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83a2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2a2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51a1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0a2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2a2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1" />
@@ -130,9 +130,9 @@ const SearchIcon = ({ ...props }) => (
     <path
       fill="none"
       stroke="currentColor"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      stroke-width="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="2"
       d="M3 10a7 7 0 1 0 14 0a7 7 0 1 0-14 0m18 11l-6-6"
     />
   </svg>
@@ -145,10 +145,10 @@ const PinIcon = ({ ...props }) => (
     viewBox="0 0 24 24"
     fill="none"
     stroke="currentColor"
-    stroke-width="2"
-    stroke-linecap="round"
-    stroke-linejoin="round"
-    class="lucide lucide-pin-icon lucide-pin"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className="lucide lucide-pin-icon lucide-pin"
   >
     <path d="M12 17v5" />
     <path d="M9 10.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24V16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 10.76V7a1 1 0 0 1 1-1 2 2 0 0 0 0-4H8a2 2 0 0 0 0 4 1 1 0 0 1 1 1z" />
@@ -157,14 +157,14 @@ const PinIcon = ({ ...props }) => (
 
 const PanelIcon = ({ ...props }) => (
   <svg xmlns="http://www.w3.org/2000/svg" {...props} viewBox="0 0 24 24">
-    <g fill="none" stroke="currentColor" stroke-width="2">
+    <g fill="none" stroke="currentColor" strokeWidth="2">
       <rect
         width="20"
         height="18"
         x="2"
         y="3"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeLinecap="round"
+        strokeLinejoin="round"
         rx="2"
       />
       <path d="M9 3v18m13-9H9" />
@@ -176,9 +176,9 @@ const CutIcon = ({ ...props }) => (
   <svg xmlns="http://www.w3.org/2000/svg" {...props} viewBox="0 0 14 14">
     <path
       fill="currentColor"
-      fill-rule="evenodd"
+      fillRule="evenodd"
       d="M1.625 3.25a1.625 1.625 0 1 1 3.25 0a1.625 1.625 0 0 1-3.25 0M3.25.375a2.875 2.875 0 0 0-.803 5.636l1.7.976L2.444 7.99a2.876 2.876 0 0 0 .806 5.636a2.875 2.875 0 0 0 1.314-5.433l.83-.489l2.785 1.6A.625.625 0 1 0 8.8 8.217L6.633 6.974l6.684-3.935a.625.625 0 0 0-.634-1.078L5.386 6.257l-.802-.46A2.875 2.875 0 0 0 3.25.375m4.49 10a.625.625 0 1 0 0 1.25h1.5a.625.625 0 1 0 0-1.25zm4 0a.625.625 0 0 0 0 1.25h1.5a.625.625 0 1 0 0-1.25zm-10.115.375a1.625 1.625 0 1 1 3.25 0a1.625 1.625 0 0 1-3.25 0"
-      clip-rule="evenodd"
+      clipRule="evenodd"
     />
   </svg>
 );
@@ -188,9 +188,9 @@ const XIcon = ({ ...props }) => (
     <path
       fill="none"
       stroke="currentColor"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      stroke-width="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="2"
       d="M18 6L6 18M6 6l12 12"
     />
   </svg>
@@ -201,9 +201,9 @@ const DotsIcon = ({ ...props }) => (
     <path
       fill="none"
       stroke="currentColor"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      stroke-width="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="2"
       d="M4 12a1 1 0 1 0 2 0a1 1 0 1 0-2 0m7 0a1 1 0 1 0 2 0a1 1 0 1 0-2 0m7 0a1 1 0 1 0 2 0a1 1 0 1 0-2 0"
     />
   </svg>
@@ -228,7 +228,7 @@ const ComposeIcon = ({ ...props }) => (
 
 const UserPlusIcon = ({ ...props }) => (
   <svg xmlns="http://www.w3.org/2000/svg" {...props} viewBox="0 0 24 24">
-    <g fill="none" fill-rule="evenodd">
+    <g fill="none" fillRule="evenodd">
       <path d="m12.594 23.258l-.012.002l-.071.035l-.02.004l-.014-.004l-.071-.036q-.016-.004-.024.006l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.016-.018m.264-.113l-.014.002l-.184.093l-.01.01l-.003.011l.018.43l.005.012l.008.008l.201.092q.019.005.029-.008l.004-.014l-.034-.614q-.005-.019-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.003-.011l.018-.43l-.003-.012l-.01-.01z" />
       <path
         fill="currentColor"
@@ -243,9 +243,9 @@ const LinkIcon = ({ ...props }) => (
     <path
       fill="none"
       stroke="currentColor"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      stroke-width="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="2"
       d="M13.5 10.5L21 3m-5 0h5v5m0 6v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5"
     />
   </svg>
@@ -282,9 +282,9 @@ const HeartIcon = ({ ...props }) => (
     <path
       fill="none"
       stroke="currentColor"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      stroke-width="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="2"
       d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676a.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5"
     />
   </svg>
@@ -295,9 +295,9 @@ const HeartIconFilled = ({ ...props }) => (
     <path
       fill="currentColor"
       stroke="currentColor"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      stroke-width="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="2"
       d="M17 4c-3.2 0-5 2.667-5 4c0-1.333-1.8-4-5-4S3 6.667 3 8c0 7 9 12 9 12s9-5 9-12c0-1.333-.8-4-4-4"
     />
   </svg>
@@ -317,9 +317,9 @@ const BanIcon = ({ ...props }) => (
     <path
       fill="none"
       stroke="currentColor"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      stroke-width="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="2"
       d="M3 12a9 9 0 1 0 18 0a9 9 0 1 0-18 0m2.7-6.3l12.6 12.6"
     />
   </svg>
@@ -356,9 +356,9 @@ const FullscreenIcon = ({ ...props }) => (
   <svg xmlns="http://www.w3.org/2000/svg" {...props} viewBox="0 0 24 24">
     <path
       fill="currentColor"
-      fill-rule="evenodd"
+      fillRule="evenodd"
       d="M12 4h6.586l-5.293 5.293l1.414 1.414L20 5.414V12h2V2H12zM4 18.586l5.293-5.293l1.414 1.414L5.414 20H12v2H2V12h2z"
-      clip-rule="evenodd"
+      clipRule="evenodd"
     />
   </svg>
 );
@@ -377,9 +377,9 @@ const MaskXIcon = ({ ...props }) => (
     <path
       fill="none"
       stroke="currentColor"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      stroke-width="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="2"
       d="m3 21l7.5-7.5m3-3L21 3M8 3H3l13 18h5Z"
     />
   </svg>
@@ -395,8 +395,8 @@ const WhatsAppIcon = ({ ...props }) => (
         y1="100%"
         y2="0%"
       >
-        <stop offset="0%" stop-color="#1FAF38" />
-        <stop offset="100%" stop-color="#60D669" />
+        <stop offset="0%" stopColor="#1FAF38" />
+        <stop offset="100%" stopColor="#60D669" />
       </linearGradient>
       <linearGradient
         id="IconifyId199ac753526dd9b53"
@@ -405,8 +405,8 @@ const WhatsAppIcon = ({ ...props }) => (
         y1="100%"
         y2="0%"
       >
-        <stop offset="0%" stop-color="#F9F9F9" />
-        <stop offset="100%" stop-color="#FFF" />
+        <stop offset="0%" stopColor="#F9F9F9" />
+        <stop offset="100%" stopColor="#FFF" />
       </linearGradient>
     </defs>
     <path
@@ -435,10 +435,10 @@ const MessengersIcon = ({ ...props }) => (
         fx="19.247%"
         fy="99.465%"
       >
-        <stop offset="0%" stop-color="#09F" />
-        <stop offset="60.975%" stop-color="#A033FF" />
-        <stop offset="93.482%" stop-color="#FF5280" />
-        <stop offset="100%" stop-color="#FF7061" />
+        <stop offset="0%" stopColor="#09F" />
+        <stop offset="60.975%" stopColor="#A033FF" />
+        <stop offset="93.482%" stopColor="#FF5280" />
+        <stop offset="100%" stopColor="#FF7061" />
       </radialGradient>
     </defs>
     <path
@@ -548,12 +548,12 @@ const LoadingIcon = ({ ...props }) => (
     <g
       fill="none"
       stroke="currentColor"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      stroke-width="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="2"
     >
       <path
-        stroke-dasharray="16"
+        strokeDasharray="16"
         stroke-dashoffset="16"
         d="M12 3c4.97 0 9 4.03 9 9"
       >
@@ -572,9 +572,9 @@ const LoadingIcon = ({ ...props }) => (
         />
       </path>
       <path
-        stroke-dasharray="64"
+        strokeDasharray="64"
         stroke-dashoffset="64"
-        stroke-opacity=".3"
+        strokeOpacity=".3"
         d="M12 3c4.97 0 9 4.03 9 9c0 4.97 -4.03 9 -9 9c-4.97 0 -9 -4.03 -9 -9c0 -4.97 4.03 -9 9 -9Z"
       >
         <animate

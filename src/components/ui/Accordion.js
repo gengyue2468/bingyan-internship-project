@@ -2,8 +2,8 @@ import { useState } from "react";
 import Flex from "../layouts/Flex";
 import { ChevronDownIcon } from "./Icons";
 
-export default function Accordion({ title, height, content }) {
-  const [collapse, setCollapse] = useState(true);
+export default function Accordion({ title, height, content, detail = false }) {
+  const [collapse, setCollapse] = useState(!detail);
 
   const iconStyle = { height: "1rem", width: "1rem" };
   return (
@@ -22,8 +22,11 @@ export default function Accordion({ title, height, content }) {
         style={{
           width: "100%",
         }}
+        onClick={() => setCollapse(!collapse)}
       >
-        <h3>{title}</h3>
+        <h3 onClick={() => setCollapse(!collapse)} style={{ flex: 1 }}>
+          {title}
+        </h3>
         <button
           onClick={() => setCollapse(!collapse)}
           className="iconButton normalButton ghostButton"
@@ -40,7 +43,7 @@ export default function Accordion({ title, height, content }) {
       </Flex>
       <div
         style={{
-          height: collapse ? 0 :  height ,
+          height: collapse ? 0 : height,
           overflowY: "auto",
           transitionProperty: "all",
           transitionDuration: "500ms",

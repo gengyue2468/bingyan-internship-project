@@ -1,3 +1,5 @@
+import { useDeviceType } from "@/hooks/useDeviceType";
+
 export default function Tooltip({ display, information, direction = "right" }) {
   let directionStyle;
   switch (direction) {
@@ -29,6 +31,9 @@ export default function Tooltip({ display, information, direction = "right" }) {
         transform: "translateX(-50%)",
       };
   }
+
+  const isMobile = useDeviceType();
+  if (isMobile) return null;
   return (
     <div
       style={{

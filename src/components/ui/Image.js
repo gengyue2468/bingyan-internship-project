@@ -84,8 +84,7 @@ export default function Image({ index, ...props }) {
 
       <Link
         href={{
-          pathname: `/pin/${imageData?.id}`,
-          query: { imageData: JSON.stringify(imageData) },
+          pathname: `/pin/${imageData?.id}/`,
         }}
         style={{
           position: "relative",

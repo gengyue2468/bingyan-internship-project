@@ -7,6 +7,7 @@
   --bingo: #e11d48;
   --success: #93c5fd;
   --unit: 0.25rem;
+  --blur: rgba(255, 255, 255, 0.95);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -19,6 +20,7 @@
     --bingo: #e11d48;
     --success: #3b82f6;
     --unit: 0.25rem;
+    --blur: rgba(0, 0, 0, 0.95);
   }
 }
 
@@ -154,6 +156,12 @@ button {
   transition-duration: 500ms;
 }
 
+@media screen and (max-width: 768px) {
+  .searchBar {
+    padding-block: 0.6rem;
+  }
+}
+
 .searchBar:hover {
   background-color: var(--border);
 }
@@ -257,10 +265,10 @@ button {
   .sidebar {
     bottom: 0;
     padding-inline: 0.5rem;
-    padding-block: 0.75rem;
+    padding-block: 0.2rem;
     width: 100%;
     border-top: 1px solid var(--border);
     border-right: 0px transparent;
-    height: 3.75rem;
+    height: fit-content;
   }
 }

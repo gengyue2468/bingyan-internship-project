@@ -52,7 +52,7 @@ export default function Searchbar() {
     },
     {
       name: "Q版人物",
-      img: "/static/cate/d69b7bb188b5e49ef7cf4c4a9a6694ae.jpg",
+      img: "/static/cate/96dc854937cf145e05b734dd15bbf694.jpg",
     },
     {
       name: "可爱头像",

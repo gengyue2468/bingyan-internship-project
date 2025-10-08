@@ -38,7 +38,7 @@ export default function ImageDetailDisplay({
   const [counter, setCounter] = useState(0);
   const [sendComment, setSendComment] = useState(false);
   const [refresh, setRefresh] = useState(false);
-  const [commentsCount,setCommentsCount] = useState(0);
+  const [commentsCount, setCommentsCount] = useState(0);
   const [px, setPx] = useState("0.5rem");
 
   const isMobile = useDeviceType();
@@ -80,10 +80,10 @@ export default function ImageDetailDisplay({
     <div>
       <div
         style={{
-          border: "1px solid var(--border)",
+          border: isMobile ? 0 : "1px solid var(--border)",
           borderRadius: "1rem",
           background: "var(--background)",
-          paddingInline: isMobile ? "0.5rem" : "1rem",
+          paddingInline: isMobile ? "0rem" : "1rem",
           paddingBlock: "1rem",
           marginBottom: "1rem",
           width: "100%",
@@ -208,7 +208,8 @@ export default function ImageDetailDisplay({
                 refresh={refresh}
               />
             }
-            height="20rem"
+            detail={true}
+            height="16rem"
           />
           <CommentPanel
             pid={pid}

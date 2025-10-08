@@ -9,6 +9,7 @@ import { useDeviceType } from "@/hooks/useDeviceType";
 import { useEffect, useState } from "react";
 import { InView } from "react-intersection-observer";
 import { useScreenSize } from "@/hooks/useScreenSize";
+import axios from "axios";
 
 export default function ImageDetail() {
   const router = useRouter();
@@ -61,19 +62,26 @@ export default function ImageDetail() {
   }, [screenType]);
 
   const totalColumn = mainContainerCount + subContainerCount;
+  const { pid } = router.query;
 
   useEffect(() => {
+    if (!pid) return;
     try {
-      setIsLoading(true);
-      const { imageData: imagesStr } = router.query;
-      const imageData = imagesStr ? JSON.parse(imagesStr) : [];
-      setImageData(imageData);
+      const getImageById = async (pid) => {
+        setIsLoading(true);
+        const res = await axios.get(`/api/${pid}`);
+        if (res) {
+          const imageData = res.data;
+          setImageData(imageData);
+        }
+      };
+      getImageById(pid);
     } catch (err) {
       console.error("页面加载失败：", err);
     } finally {
       setIsLoading(false);
     }
-  }, [router.query]);
+  }, [pid]);
 
   const isMobile = useDeviceType();
   return (

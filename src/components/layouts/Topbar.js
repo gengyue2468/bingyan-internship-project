@@ -23,7 +23,8 @@ export default function Topbar() {
         position: "fixed",
         top: 0,
         width: isMobile ? "100%" : "calc(100% - 4.5rem)",
-        background: "var(--background)",
+        background: "var(--blur)",
+        backdropFilter: "blur(16px)",
         borderBottom: "1px solid var(--border)",
         zIndex: 15,
       }}

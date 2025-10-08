@@ -10,6 +10,6 @@ export default async function handler(req, res) {
     );
     res.status(200).json(result.data);
   } catch (err) {
-    console.error("Failed to Fetch Data");
+    console.error("无法获取数据");
   }
 }

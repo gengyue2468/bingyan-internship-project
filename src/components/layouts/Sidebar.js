@@ -24,8 +24,12 @@ import { useDeviceType } from "@/hooks/useDeviceType";
 export default function Sidebar() {
   const [activeIndex, setActiveIndex] = useState(-1);
   const router = useRouter();
-  const iconStyle = { width: "1.5rem", height: "1.5rem" };
   const isMobile = useDeviceType();
+  const iconStyle = {
+    width: isMobile ? "1.25rem" : "1.5rem",
+    height: isMobile ? "1.25rem" : "1.5rem",
+  };
+
   const navItems = [
     {
       title: "主页",
@@ -69,7 +73,8 @@ export default function Sidebar() {
         display: "flex",
         justifyItems: "center",
         alignContent: "center",
-        background: "var(--background)",
+        background: "var(--blur)",
+        backdropFilter: 'blur(16px)',
         zIndex: 26,
       }}
       className="sidebar"
