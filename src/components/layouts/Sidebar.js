@@ -73,8 +73,7 @@ export default function Sidebar() {
         display: "flex",
         justifyItems: "center",
         alignContent: "center",
-        background: "var(--blur)",
-        backdropFilter: 'blur(16px)',
+        background: "var(--background)",
         zIndex: 26,
       }}
       className="sidebar"

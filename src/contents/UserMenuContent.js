@@ -1,6 +1,6 @@
 import Flex from "@/components/layouts/Flex";
 import Dialog from "@/components/ui/Dialog";
-import { OfflineIcon } from "@/components/ui/Icons";
+import { GitHubIcon, OfflineIcon } from "@/components/ui/Icons";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { useState } from "react";
 
@@ -118,15 +118,18 @@ export default function UserMenuContent() {
           type="button"
           style={{
             background: "var(--bingo)",
-            paddingInline: "1rem",
-            paddingBlock: "0.75rem",
+            paddingInline: "0.75rem",
+            paddingBlock: "0.5rem",
             borderRadius: "1rem",
             color: "#ffffff",
             width: "100%",
             marginBlock: "1rem",
           }}
         >
-          现在登录
+          <Flex direction="row" gap={2} justify="center">
+            <GitHubIcon style={{ width: "1.5rem" }} />
+            <span>现在登录</span>
+          </Flex>
         </button>
       )}
     </>

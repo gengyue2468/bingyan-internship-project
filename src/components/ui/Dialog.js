@@ -19,7 +19,6 @@ export default function Dialog({ open, children, close, content, ...props }) {
           left: "50%",
           right: "50%",
           top: "50%",
-          bottom: "50%",
           transform: "translateX(-50%) translateY(-50%)",
           border: "1px solid var(--border)",
           width: !isMobile ? "30rem" : "90%",
@@ -47,7 +46,6 @@ export default function Dialog({ open, children, close, content, ...props }) {
             bottom: 0,
             background: "#000000",
             opacity: 0.9,
-            zIndex: 999,
           }}
         />
       )}

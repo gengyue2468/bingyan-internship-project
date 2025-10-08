@@ -23,10 +23,9 @@ export default function Topbar() {
         position: "fixed",
         top: 0,
         width: isMobile ? "100%" : "calc(100% - 4.5rem)",
-        background: "var(--blur)",
-        backdropFilter: "blur(16px)",
+        background: "var(--background)",
         borderBottom: "1px solid var(--border)",
-        zIndex: 15,
+        zIndex: 27,
       }}
     >
       <div
@@ -54,7 +53,6 @@ export default function Topbar() {
               </div>
             )}
             <Dialog
-              style={{ position: "relative" }}
               onClick={() => setOpen(true)}
               open={open}
               content={<Login />}
