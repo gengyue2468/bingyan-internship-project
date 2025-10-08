@@ -15,7 +15,7 @@ export default function Dialog({ open, children, close, content, ...props }) {
           padding: isMobile ? "2rem" : "3rem",
           borderRadius: isMobile ? "2rem" : "4rem",
           background: "var(--background)",
-          zIndex: open ? 9999 : -9999,
+          zIndex: 9999,
           left: "50%",
           right: "50%",
           top: "50%",
@@ -46,6 +46,7 @@ export default function Dialog({ open, children, close, content, ...props }) {
             bottom: 0,
             background: "#000000",
             opacity: 0.9,
+            zIndex: 9998,
           }}
         />
       )}
