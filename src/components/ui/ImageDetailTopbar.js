@@ -12,14 +12,14 @@ import {
 } from "./Icons";
 import { useEffect, useState } from "react";
 
-export default function ImageDetailTopbar({ px }) {
+export default function ImageDetailTopbar({ px, img }) {
   const [like, setLike] = useState(false);
   const [likeCount, setLikeCount] = useState(0);
 
   useEffect(() => {
     const randomLikeCount = Math.floor(Math.random() * 100);
     setLikeCount(randomLikeCount);
-  }, []);
+  }, [img]);
 
   return (
     <Flex

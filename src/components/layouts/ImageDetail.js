@@ -50,7 +50,7 @@ export default function ImageDetailDisplay({
           width: "100%",
         }}
       >
-        <ImageDetailTopbar px={px} />
+        <ImageDetailTopbar px={px} img={imgUrl} />
         <Flex
           direction="column"
           disabledCenter={true}
