@@ -1,11 +1,11 @@
 import { useState } from "react";
 import Flex from "../layouts/Flex";
 import { DotsIcon, LinkIcon, UploadIcon } from "./Icons";
-import Link from "next/link";
 import DropDown from "./Dropdown";
 import ImageOptions from "@/contents/ImageOptions";
 import Share from "@/contents/Share";
 import { LazyLoadImage } from "react-lazy-load-image-component";
+import { useRouter } from "next/router";
 
 export default function Image({
   index,
@@ -15,6 +15,7 @@ export default function Image({
   color_dominant,
   ...props
 }) {
+  const router = useRouter();
   const [isLoaded, setIsLoaded] = useState(false);
   const [isHover, setIsHover] = useState(false);
   const aspectRatio = isLoaded ? "auto" : Math.random() * 0.45 + 0.75;
@@ -33,7 +34,9 @@ export default function Image({
         borderRadius: "1rem",
         transitionProperty: "all",
         transitionDuration: "500ms",
-        display: "block",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
         backgroundColor: color_dominant ? dominatColor : "var(--accent)",
       }}
       {...props}
@@ -50,31 +53,21 @@ export default function Image({
         />
       )}
 
-      <Link
-        href={{
-          pathname: `/pin/${pid}/`,
-        }}
+      <LazyLoadImage
+        onClick={() => router.push(`/pin/${pid}/`)}
+        effect="blur"
+        src={src}
+        alt={alt}
         style={{
-          position: "relative",
-          zIndex: src ? 7 : -1,
-          display: "block",
+          borderRadius: "1rem",
           width: "100%",
           height: "100%",
+          zIndex: 0,
+          objectFit: "cover",
+          display: "block",
         }}
-      >
-        <LazyLoadImage
-          effect="blur"
-          src={src}
-          alt={alt}
-          style={{
-            borderRadius: "1rem",
-            width: "100%",
-            height: "100%",
-            zIndex: 0,
-          }}
-          onLoad={() => setIsLoaded(true)}
-        />
-      </Link>
+        onLoad={() => setIsLoaded(true)}
+      />
 
       <div
         style={{

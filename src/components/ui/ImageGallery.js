@@ -59,6 +59,8 @@ export default function ImageGallery({ src, color, title }) {
   const imgStyle = {
     borderRadius: "1rem",
     width: "100%",
+    objectFit: "cover",
+    display: "block",
   };
   const absoluteImgStyle = {
     borderRadius: "1rem",
@@ -124,6 +126,8 @@ export default function ImageGallery({ src, color, title }) {
               transitionProperty: "all",
               transitionDuration: "500ms",
               opacity: isFullscreen ? 1 : 0,
+              objectFit: "cover",
+              display: "block",
             }}
           />
           {isFullscreen && (
