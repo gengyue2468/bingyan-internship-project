@@ -34,6 +34,7 @@ export default function Image({
         transitionProperty: "all",
         transitionDuration: "500ms",
         display: "block",
+        backgroundColor: color_dominant ? dominatColor : "var(--accent)",
       }}
       {...props}
     >

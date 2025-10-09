@@ -4,6 +4,7 @@ import Avatar from "./Avatar";
 import { useDeviceType } from "@/hooks/useDeviceType";
 import { useState } from "react";
 import axios from "axios";
+import { LoadingIcon, SendIcon } from "./Icons";
 
 export default function CommentPanel({ pid, sendComment }) {
   const { data: session } = useSession();
@@ -31,7 +32,7 @@ export default function CommentPanel({ pid, sendComment }) {
         border: "1px solid var(--border)",
         borderRadius: "4rem",
         flexWrap: "nowrap",
-        translate: '-1rem 0',
+        translate: "-1rem 0",
         width: "calc(100% + 2rem)",
       }}
       gap={2}
@@ -73,15 +74,20 @@ export default function CommentPanel({ pid, sendComment }) {
             onClick={() => handleSubmit(pid, comment)}
             style={{
               borderRadius: "4rem",
-              paddingInline: "1.2rem",
-              paddingBlock: "0.8rem",
+              padding: "0.5rem",
               background: "var(--success)",
               color: "#fff",
-              whiteSpace: "nowrap",
               opacity: comment === "" ? 0.2 : 1,
+              display: "flex",
+              
+              alignItems: "center",
             }}
           >
-            {isSending ? "发送中..." : "发送"}
+            {isSending ? (
+              <LoadingIcon style={{ width: "1.75rem", height: "1.75rem" }} />
+            ) : (
+              <SendIcon style={{ width: "1.75rem", height: "1.75rem" }} />
+            )}
           </button>
         </Flex>
       )}
