@@ -31,15 +31,17 @@ export default function WaterfallContainer({
               />
             ))}
 
-            <InView
-              onChange={(inView) => {
-                if (inView && !isLoading) {
-                  fetchMore();
-                }
-              }}
-            >
-              {({ ref }) => <div ref={ref} style={{ height: "30px" }} />}
-            </InView>
+            {index === column - 1 && (
+              <InView
+                onChange={(inView) => {
+                  if (inView && !isLoading) {
+                    fetchMore();
+                  }
+                }}
+              >
+                {({ ref }) => <div ref={ref} style={{ height: "30px" }} />}
+              </InView>
+            )}
           </Flex>
         ))}
       </Flex>
