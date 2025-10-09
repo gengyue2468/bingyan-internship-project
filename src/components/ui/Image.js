@@ -36,7 +36,7 @@ export default function Image({
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: color_dominant ? dominatColor : "var(--accent)",
+        backgroundColor: dominatColor ? dominatColor : "var(--accent)",
       }}
       {...props}
     >
@@ -44,7 +44,7 @@ export default function Image({
         <div
           style={{
             position: "absolute",
-            backgroundColor: color_dominant ? dominatColor : "var(--accent)",
+            backgroundColor: dominatColor ? dominatColor : "var(--accent)",
             width: "100%",
             height: "100%",
             borderRadius: "1rem",
@@ -52,7 +52,7 @@ export default function Image({
         />
       )}
       <Link
-        href={`/pid/${pid}`}
+        href={`/pin/${pid}`}
         style={{
           display: "flex",
           justifyContent: "center",
