@@ -5,7 +5,7 @@ import DropDown from "./Dropdown";
 import ImageOptions from "@/contents/ImageOptions";
 import Share from "@/contents/Share";
 import { LazyLoadImage } from "react-lazy-load-image-component";
-import { useRouter } from "next/router";
+import Link from "next/link";
 
 export default function Image({
   index,
@@ -15,7 +15,6 @@ export default function Image({
   color_dominant,
   ...props
 }) {
-  const router = useRouter();
   const [isLoaded, setIsLoaded] = useState(false);
   const [isHover, setIsHover] = useState(false);
   const aspectRatio = isLoaded ? "auto" : Math.random() * 0.45 + 0.75;
@@ -52,22 +51,31 @@ export default function Image({
           }}
         />
       )}
-
-      <LazyLoadImage
-        onClick={() => router.push(`/pin/${pid}/`)}
-        effect="blur"
-        src={src}
-        alt={alt}
+      <Link
+        href={`/pid/${pid}`}
         style={{
-          borderRadius: "1rem",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
           width: "100%",
           height: "100%",
-          zIndex: 0,
-          objectFit: "cover",
-          display: "block",
         }}
-        onLoad={() => setIsLoaded(true)}
-      />
+      >
+        <LazyLoadImage
+          effect="blur"
+          src={src}
+          alt={alt}
+          style={{
+            borderRadius: "1rem",
+            width: "100%",
+            height: "100%",
+            zIndex: 0,
+            objectFit: "cover",
+            display: "block",
+          }}
+          onLoad={() => setIsLoaded(true)}
+        />
+      </Link>
 
       <div
         style={{
