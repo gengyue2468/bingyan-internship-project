@@ -6,6 +6,7 @@ import ImageOptions from "@/contents/ImageOptions";
 import Share from "@/contents/Share";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 export default function Image({
   index,
@@ -15,6 +16,7 @@ export default function Image({
   color_dominant,
   ...props
 }) {
+  const router = useRouter();
   const [isLoaded, setIsLoaded] = useState(false);
   const [isHover, setIsHover] = useState(false);
   const aspectRatio = isLoaded ? "auto" : Math.random() * 0.45 + 0.75;
@@ -22,6 +24,7 @@ export default function Image({
   const dominatColor = `rgb(${color_dominant[0]},${color_dominant[1]},${color_dominant[2]})`;
   return (
     <div
+      onClick={() => router.push(`/pin/${pid}`)}
       onMouseEnter={() => setIsHover(true)}
       onMouseLeave={() => setIsHover(false)}
       style={{
@@ -37,6 +40,7 @@ export default function Image({
         justifyContent: "center",
         alignItems: "center",
         backgroundColor: dominatColor ? dominatColor : "var(--accent)",
+        cursor: "pointer",
       }}
       {...props}
     >
